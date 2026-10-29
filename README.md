@@ -1,11 +1,23 @@
 # LAST STOP
 
-A mobile-first idle RPG set on a forgotten railway. You scavenge a derelict
-platform by lantern light, level up, and bring Locomotive No. 9 back to life
-one repair at a time.
+A mobile-first idle RPG set on a forgotten railway. At Ashvale — a rain-soaked
+pottery town at the end of a closed line — you scavenge the station, engineer
+parts, and bring Locomotive No. 9 back to life, while a signal that should not
+exist burns cyan every night.
 
-**Prototype 0.1** covers one complete loop: Scavenging → resources and XP →
-repairing the Firebox Door.
+**Play:** https://skywardgaming.github.io/LastStop/ · **Changes:** [CHANGELOG.md](CHANGELOG.md)
+
+## The loop
+
+Scavenging gathers materials → Engineering turns them into parts → repairs
+make No. 9 visibly whole, speed up your work and unlock new places to search →
+new places hold new materials and the clues to Ashvale's mystery.
+
+- 2 skills (Scavenging, Engineering), levels 1–20
+- 3 locations, 7 recipes, 17 items with rarity
+- 5 locomotive repairs, each visible in the scene and granting a bonus
+- 12 discoveries, 2 characters, 11 conversations, 12 feats, 10 chapter goals
+- Up to 8 hours of offline progress for either skill
 
 ## Play locally
 
@@ -14,102 +26,77 @@ Requires Node.js 20 or newer.
 ```bash
 npm install
 npm run dev          # http://localhost:5173/LastStop/
+npm run dev -- --host  # also reachable from a phone on the same Wi-Fi
 ```
 
-To try it on an iPhone on the same Wi-Fi network:
-
-```bash
-npm run dev -- --host
-```
-
-Vite prints a `Network:` address such as `http://192.168.1.20:5173/LastStop/`;
-open that in Safari on the phone.
-
-Other commands:
-
-| Command             | What it does                          |
-| ------------------- | ------------------------------------- |
-| `npm test`          | Run the automated tests once          |
-| `npm run test:watch`| Re-run tests on every change          |
-| `npm run typecheck` | Strict TypeScript check               |
-| `npm run build`     | Type-check and build into `dist/`     |
-| `npm run preview`   | Serve the production build locally    |
+| Command              | What it does                         |
+| -------------------- | ------------------------------------ |
+| `npm test`           | Run the automated tests              |
+| `npm run test:watch` | Re-run tests on change               |
+| `npm run typecheck`  | Strict TypeScript check              |
+| `npm run build`      | Type-check and build into `dist/`    |
+| `npm run preview`    | Serve the production build locally   |
 
 ## Deploy to GitHub Pages
 
-The site is built with `base: '/LastStop/'` (see `vite.config.ts`), matching
-the repository name.
+The build uses `base: '/LastStop/'`. With **Settings → Pages → Source: GitHub
+Actions** set, run **Actions → Deploy to GitHub Pages** on `main`. CI runs
+type-checking, tests and a build on every pull request.
 
-1. **Settings → Pages → Build and deployment → Source:** choose **GitHub Actions**.
-2. **Actions → Deploy to GitHub Pages → Run workflow** on `main`.
-3. The game appears at `https://skywardgaming.github.io/LastStop/`.
-
-Deployment is manual on purpose. To deploy on every merge to `main`, add a
-`push` trigger in `.github/workflows/deploy.yml` (instructions are in the file).
-
-> GitHub Pages for a **private** repository requires a GitHub Pro, Team or
-> Enterprise plan. On a free plan, make the repository public or host `dist/`
-> elsewhere (e.g. Cloudflare Pages or Netlify).
-
-The `CI` workflow runs type-checking, tests and a build on every pull request.
-
-## How it works
+## Architecture
 
 ```
 src/
-  core/          Pure game rules — no DOM, fully unit-tested
-    data.ts        Resources, locations, repairs, constants
-    xp.ts          XP curve and levels 1–20
-    rng.ts         Seeded RNG (state lives in the save)
-    inventory.ts   Atomic add/remove; never negative
-    scavenging.ts  Timestamp-based progression (advance)
-    repair.ts      Repair checks and spending
-    save.ts        Versioned, validated saves
-    state.ts       GameState shape
-  platform/
-    storage.ts     localStorage wrapper and single-tab lock
+  core/                 Pure rules — no DOM, fully unit-tested
+    content/
+      items.ts            17 items, rarity, descriptions
+      world.ts            Locations, recipes, repairs and their bonuses
+      story.ts            Discoveries, characters, dialogue, feats, objectives
+    activity.ts         advance(): timestamp engine for both skills
+    game.ts             Player operations (start/stop/repair/tick) + story evaluation
+    rules.ts            Modifiers, unlocks, durations, blockers
+    inventory.ts        Atomic add/remove; never negative
+    save.ts             Versioned saves, migrations, sanitising
+    state.ts            GameState shape
+    rng.ts, xp.ts
+  platform/storage.ts   localStorage wrapper and single-tab Web Lock
   ui/
-    app.ts         DOM, timers, saving, events
-    scene.ts       Canvas pixel-art train scene
-    sprites.ts     Character-map sprites, icons, pixel font
-tests/           Vitest tests for the core
+    app.ts              Controller: loop, saving, feedback, sheets, onboarding
+    views.ts            Station / Skills / Train / Satchel / Journal
+    scene.ts            256×144 Ashvale canvas scene
+    sprites.ts          Character-map pixel art: items, tabs, portraits, figures
+    dom.ts              Tiny hyperscript helper
+tests/                  Vitest
 ```
 
-### Progression
+### Progression and anti-exploit rules
 
-Every activity stores `lastProcessedAt`. `advance(state, now)` computes how
-many whole searches fit since then, rolls their drops with the saved RNG, and
-moves `lastProcessedAt` forward by exactly those searches, keeping any
-remainder. Browser timers only decide *when* to call it, so live play, a
-locked phone, and a cold start after days away all share one code path.
+- Each activity stores `lastProcessedAt`; `advance(state, now)` credits whole
+  actions since then and carries the remainder. Timers only decide *when* to
+  call it.
+- At most 8 hours is credited; older time is discarded for good.
+- `clockHighWater` records the latest moment ever credited. Any `now` before
+  it credits nothing, and new activities never start before it — so clock
+  rewinds, forward/back cycles and rapid reloads cannot duplicate rewards.
+- Drops and discoveries use a seeded RNG stored in the save: deterministic,
+  online or offline.
+- The game saves after every action, every 15 s, and on `visibilitychange`,
+  `pagehide` and `beforeunload`.
 
-- **Offline cap:** at most 8 hours is credited; older time is discarded.
-- **No double rewards:** rewards depend only on the timestamp, which moves
-  forward as they are paid, and the game saves immediately after catching
-  up. A Web Lock also stops two tabs from running the game at once.
-- **Clock changes:** if the device clock goes backwards, nothing is credited
-  and the timestamp is not rewound.
-- **Deterministic drops:** the same save advanced to the same moment always
-  yields the same items, whether you were online or not.
+### Saves
 
-### Saving
-
-Saves go to `localStorage` under `laststop.save`, every 15 seconds, after
-every player action, and whenever the page is hidden or unloaded
-(`visibilitychange`, `pagehide`, `beforeunload` — iOS Safari does not
-reliably fire `beforeunload` alone). Saves are versioned; unknown versions
-are rejected, and malformed values are clamped rather than trusted. An
-unreadable save is kept aside under `laststop.save.corrupt`.
+Stored in `localStorage` under `laststop.save` with a version number. Older
+versions are migrated step by step in `save.ts` (`migrate()`); every value is
+then sanitised. An unreadable save is kept under `laststop.save.corrupt`.
 
 ### Adding content
 
-- New resource: add an id to `RESOURCE_IDS` and a definition in `RESOURCES`,
-  plus an icon in `ui/sprites.ts`.
-- New location: add it to `LOCATIONS` with its drops and level requirement.
-- New repair: add it to `REPAIRS`.
-- Changing the save shape: bump `SAVE_VERSION` and add a step in `migrate()`.
+- **Item:** add to `ITEM_IDS`/`ITEMS` and draw an icon in `ITEM_SPRITES`.
+- **Location / recipe / repair:** add to `world.ts`. The no-dead-end test will
+  fail if anything required can't be obtained.
+- **Discovery / dialogue / feat / objective:** add to `story.ts`.
+- **Save shape change:** bump `SAVE_VERSION` and add a migration step.
 
 ## Art
 
-All art is original placeholder pixel art drawn in code (`ui/scene.ts`,
-`ui/sprites.ts`) on a 192×108 canvas scaled with crisp edges.
+All art is original placeholder pixel art drawn in code — no external assets.

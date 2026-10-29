@@ -343,7 +343,8 @@ export const OBJECTIVES: ObjectiveDef[] = [
     id: 'plates',
     title: 'Hammer out 4 Iron Plates',
     hint: 'Skills → Engineering. Each plate takes 3 Scrap Iron.',
-    progress: (s) => [Math.min(4, (s.stats.obtained.ironPlate ?? 0)), 4],
+    // Saves from 0.1 repaired the firebox without plates; count that as done.
+    progress: (s) => [s.repairs.fireboxDoor ? 4 : Math.min(4, s.stats.obtained.ironPlate ?? 0), 4],
   },
   {
     id: 'firebox',
@@ -378,13 +379,13 @@ export const OBJECTIVES: ObjectiveDef[] = [
   {
     id: 'dryCab',
     title: 'Mend the Dry Cab',
-    hint: 'Timber Beams need Engineering 4.',
+    hint: 'Engineering 6, six Timber Beams and six Iron Plates.',
     progress: (s) => flag(s.repairs.dryCab),
   },
   {
     id: 'tender',
     title: 'Reinforce the Tender',
-    hint: 'Riveted Panels need Engineering 6 and Steel Rivets from the shed.',
+    hint: 'Riveted Panels need Engineering 7 and Steel Rivets from the shed.',
     progress: (s) => flag(s.repairs.reinforcedStorage),
   },
   {

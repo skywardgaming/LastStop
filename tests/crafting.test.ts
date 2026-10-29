@@ -42,7 +42,7 @@ describe('Engineering crafting', () => {
   });
 
   it('multi-input recipes check every input', () => {
-    const s = atLevel(withItems(fresh(), { pressureGauge: 1, copperCoil: 2, brassCog: 1 }), 'engineering', 8);
+    const s = atLevel(withItems(fresh(), { pressureGauge: 1, copperCoil: 2, brassCog: 1 }), 'engineering', 10);
     expect(craftableCount(s, 'gaugeAssembly')).toBe(0);
     expect(startCrafting(s, 'gaugeAssembly', T0).ok).toBe(false);
   });

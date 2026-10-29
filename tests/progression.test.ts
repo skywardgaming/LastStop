@@ -93,6 +93,12 @@ describe('story, achievements and objectives', () => {
     expect(evaluate(e1.state, T0 + 3000).achievements).not.toContain('firstSearch');
   });
 
+  it('a migrated player who already lit the firebox is not sent back to make plates', () => {
+    const lit = fresh({ repairs: { ...fresh().repairs, fireboxDoor: true } });
+    const plates = OBJECTIVES.find((o) => o.id === 'plates');
+    expect(plates?.progress(lit)).toEqual([4, 4]);
+  });
+
   it('objectives start incomplete and report progress', () => {
     const s = fresh();
     for (const o of OBJECTIVES) {

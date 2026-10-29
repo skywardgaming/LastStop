@@ -23,7 +23,7 @@ describe('locomotive repairs', () => {
     if (!low.ok) expect(low.blockers).toEqual(['levelTooLow']);
     expect(low.state.inventory).toEqual(rich.inventory);
 
-    const poor = atLevel(withItems(fresh(), { timberBeam: 4, ironPlate: 2 }), 'engineering', 5);
+    const poor = atLevel(withItems(fresh(), { timberBeam: 4, ironPlate: 2 }), 'engineering', 6);
     const short = performRepair(poor, 'dryCab', T0);
     expect(short.ok).toBe(false);
     if (!short.ok) expect(short.blockers).toEqual(['missingResources']);

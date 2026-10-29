@@ -146,7 +146,7 @@ export const RECIPES: Record<RecipeId, RecipeDef> = {
     inputs: { ironPlate: 2, steelRivets: 3 },
     actionMs: 5500,
     xp: 30,
-    levelRequired: 6,
+    levelRequired: 7,
   },
   gaugeAssembly: {
     id: 'gaugeAssembly',
@@ -155,7 +155,7 @@ export const RECIPES: Record<RecipeId, RecipeDef> = {
     inputs: { pressureGauge: 1, copperCoil: 2, brassCog: 2 },
     actionMs: 8000,
     xp: 60,
-    levelRequired: 8,
+    levelRequired: 10,
   },
 };
 
@@ -204,7 +204,7 @@ export const REPAIRS: Record<RepairId, RepairDef> = {
     doneText: 'A clean white beam runs down the line and stops dead at the fog.',
     benefit: 'Rare finds 50% more likely',
     levelRequired: 3,
-    cost: { polishedLens: 2, copperCoil: 2, signalRelay: 1 },
+    cost: { polishedLens: 3, copperCoil: 3, signalRelay: 2 },
     apply: (m) => {
       m.rareChance *= 1.5;
     },
@@ -215,8 +215,8 @@ export const REPAIRS: Record<RepairId, RepairDef> = {
     description: 'Rain pours through the cab roof onto the footplate.',
     doneText: 'Tarred oak overhead. The footplate is dry enough to work on.',
     benefit: 'Engineering 20% faster',
-    levelRequired: 5,
-    cost: { timberBeam: 4, ironPlate: 3 },
+    levelRequired: 6,
+    cost: { timberBeam: 6, ironPlate: 6 },
     apply: (m) => {
       m.speed.engineering += 0.2;
     },
@@ -227,8 +227,8 @@ export const REPAIRS: Record<RepairId, RepairDef> = {
     description: 'The tender is a rust-eaten shell. Nothing could be carried in it.',
     doneText: 'Riveted panels, a tarp and stacked crates. No. 9 could carry a town.',
     benefit: 'All XP +15%',
-    levelRequired: 7,
-    cost: { patchPanel: 3, timberBeam: 2 },
+    levelRequired: 9,
+    cost: { patchPanel: 5, timberBeam: 4 },
     apply: (m) => {
       m.xp *= 1.15;
     },
@@ -239,8 +239,8 @@ export const REPAIRS: Record<RepairId, RepairDef> = {
     description: 'Seized valves, a dead gauge and a jacket full of holes.',
     doneText: 'Steam. Pressure. A heartbeat in the iron.',
     benefit: 'Every activity 10% faster · completes Chapter One',
-    levelRequired: 9,
-    cost: { gaugeAssembly: 1, patchPanel: 2, fuelBrick: 6, cyanPrism: 1 },
+    levelRequired: 12,
+    cost: { gaugeAssembly: 2, patchPanel: 4, fuelBrick: 10, cyanPrism: 1 },
     apply: (m) => {
       m.speed.scavenging += 0.1;
       m.speed.engineering += 0.1;
