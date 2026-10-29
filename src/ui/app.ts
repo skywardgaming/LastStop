@@ -22,8 +22,9 @@ import { deserialize, serialize } from '../core/save';
 import { createInitialState, type GameState } from '../core/state';
 import { backupCorruptSave, clearSave, readSave, writeSave } from '../platform/storage';
 import { byId, formatDuration, h, img } from './dom';
-import { AshvaleScene, type FigureSpot, type SceneState } from './scene';
-import { itemIconUrl, portraitUrl, tabIconUrl } from './sprites';
+import { HOTSPOTS, StationScene, type FigureSpot, type HotspotId, type SceneState } from './scene';
+import { artUrl, MARKER_ART, SCENE_H, SCENE_W } from './art';
+import { discoveryIconUrl, itemIconUrl, portraitUrl, tabIconUrl } from './sprites';
 import {
   activityLabel,
   itemSources,
@@ -67,17 +68,19 @@ export class App {
   private log: LogEntry[] = [];
   private dirty = true;
   private lastSaveAt = 0;
-  private readonly scene: AshvaleScene;
+  private readonly scene: StationScene;
+  private rareAt = 0;
   private readonly actions: Actions;
   private toastQueue: Toast[] = [];
   private toastsShown = 0;
 
   constructor() {
-    this.scene = new AshvaleScene(byId<HTMLCanvasElement>('scene'));
+    this.scene = new StationScene(byId<HTMLCanvasElement>('scene'));
     this.actions = this.makeActions();
     const { state, notice } = this.load();
     this.state = state;
     this.buildTabbar();
+    this.buildHotspots();
     this.bindGlobal();
 
     // Catch up on time away, then save at once so it can't be credited twice.
@@ -163,6 +166,7 @@ export class App {
       this.dirty = true;
     }
     if (feedback) {
+      if (r.rareFinds.length > 0) this.rareAt = performance.now();
       for (const id of r.rareFinds) {
         this.pushLog({ kind: 'rare', text: `Rare find: ${ITEMS[id].name}!`, item: id });
         this.toast({ kind: 'rare', title: 'Rare find', body: ITEMS[id].name, icon: itemIconUrl(id), onTap: () => this.openItem(id) });
@@ -171,7 +175,7 @@ export class App {
         const d = DISCOVERY_BY_ID[id];
         if (!d) continue;
         this.pushLog({ kind: 'discovery', text: `Journal: ${d.name}` });
-        this.toast({ kind: 'discovery', title: 'New discovery', body: d.name, onTap: () => this.openDiscovery(id) });
+        this.toast({ kind: 'discovery', title: 'New discovery', body: d.name, icon: discoveryIconUrl(id), onTap: () => this.openDiscovery(id) });
       }
       if (r.levelUp) {
         this.pushLog({ kind: 'level', text: `${SKILL_NAMES[r.levelUp.skill]} reached level ${r.levelUp.to}` });
@@ -183,7 +187,7 @@ export class App {
       }
       for (const id of r.dialogues) {
         const d = DIALOGUE_BY_ID[id];
-        if (d && id !== 'maraIntro') this.toast({ kind: 'talk', title: `${CHARACTERS[d.speaker].name} wants a word`, body: d.title, icon: portraitUrl(d.speaker), onTap: () => this.openDialogue(id) });
+        if (d && id !== 'maraIntro') this.toast({ kind: 'talk', title: `${CHARACTERS[d.speaker].name} wants a word`, body: d.title, icon: portraitUrl(d.speaker, 'concerned'), onTap: () => this.openDialogue(id) });
       }
       if (r.stopped === 'outOfMaterials') {
         this.pushLog({ kind: 'info', text: 'Out of materials — crafting stopped.' });
@@ -336,14 +340,19 @@ export class App {
     let spot: FigureSpot = 'idle';
     if (a?.kind === 'craft') spot = 'engine';
     else if (a?.kind === 'scavenge') spot = a.locationId === 'derelictPlatform' ? 'platform' : a.locationId === 'signalCabinet' ? 'cabinet' : 'shed';
+    const unread = unreadDialogues(s).map((id) => DIALOGUE_BY_ID[id]?.speaker);
     return {
       repairs: s.repairs,
+      upgrades: {},
       spot,
       working: a !== null,
       shedOpen: 'shedKey' in s.discoveries && skillLevel(s, 'scavenging') >= LOCATIONS.maintenanceShed.levelRequired,
       cabinetOpen: s.repairs.fireboxDoor,
       maraHere: s.dialogues.unlocked.includes('maraIntro'),
       tobinHere: s.dialogues.unlocked.includes('tobinIntro'),
+      maraWaiting: unread.includes('mara'),
+      tobinWaiting: unread.includes('tobin'),
+      rareAt: this.rareAt,
     };
   }
 
@@ -378,6 +387,46 @@ export class App {
       const a = this.state.activity;
       this.actions.go('skills', a?.kind === 'craft' ? 'engineering' : 'scavenging');
     });
+  }
+
+  private buildHotspots(): void {
+    const wrap = byId('scene-wrap');
+    for (const hs of HOTSPOTS) {
+      const marker = MARKER_ART[hs.id];
+      const btn = h(
+        'button',
+        {
+          class: 'scene-hotspot',
+          attrs: { type: 'button', 'aria-label': hs.label },
+          data: { hotspot: hs.id },
+          on: { click: () => this.onHotspot(hs.id) },
+        },
+        marker ? img(artUrl(marker), '') : null,
+      );
+      wrap.appendChild(btn);
+    }
+    this.positionHotspots();
+    window.addEventListener('resize', () => this.positionHotspots());
+  }
+
+  /** Hotspots are positioned against the canvas box, not the caption below it. */
+  private positionHotspots(): void {
+    const canvas = byId('scene');
+    const w = canvas.clientWidth;
+    const hgt = canvas.clientHeight;
+    for (const hs of HOTSPOTS) {
+      const el = document.querySelector<HTMLElement>(`[data-hotspot="${hs.id}"]`);
+      if (!el) continue;
+      el.style.left = `${(hs.x / SCENE_W) * w}px`;
+      el.style.top = `${(hs.y / SCENE_H) * hgt}px`;
+      el.style.width = `${Math.max(44, (hs.w / SCENE_W) * w)}px`;
+      el.style.height = `${Math.max(44, (hs.h / SCENE_H) * hgt)}px`;
+    }
+  }
+
+  private onHotspot(id: HotspotId): void {
+    if (id === 'train') this.actions.go('train');
+    else this.actions.go('skills', 'scavenging');
   }
 
   private bindGlobal(): void {
@@ -497,6 +546,7 @@ export class App {
       h(
         'div',
         { class: 'disc-sheet' },
+        img(discoveryIconUrl(id), 'px-icon xl'),
         h('p', { class: 'eyebrow cyan', text: `${CATEGORY_NAMES[d.category]} · ${LOCATIONS[d.location].name}` }),
         h('h2', { text: d.name }),
         h('p', { class: 'lore', text: d.text }),
@@ -519,7 +569,7 @@ export class App {
         h(
           'div',
           { class: `line ${line.speaker === 'you' ? 'you' : ''}` },
-          who ? img(portraitUrl(line.speaker as 'mara' | 'tobin'), 'portrait') : h('span', { class: 'you-mark', text: 'You' }),
+          img(portraitUrl(line.speaker, line.mood ?? 'neutral'), 'portrait', who ? who.name : 'You'),
           h('div', null, h('strong', { text: who ? who.name : 'You' }), h('p', { text: line.text })),
         ),
       );

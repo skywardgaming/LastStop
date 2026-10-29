@@ -39,7 +39,7 @@ import {
 import type { GameState } from '../core/state';
 import { levelProgress } from '../core/xp';
 import { h, img, pct, seconds, type Child } from './dom';
-import { itemIconUrl, portraitUrl } from './sprites';
+import { discoveryIconUrl, itemIconUrl, portraitUrl } from './sprites';
 
 export type Tab = 'station' | 'skills' | 'train' | 'satchel' | 'journal';
 export type JournalTab = 'discoveries' | 'people' | 'feats' | 'progress';
@@ -227,7 +227,7 @@ export function stationView(ctx: ViewCtx): HTMLElement {
           return h(
             'button',
             { class: `talk-row ${d.milestone ? 'milestone' : ''}`, attrs: { type: 'button' }, on: { click: () => act.openDialogue(id) } },
-            img(portraitUrl(d.speaker), 'portrait sm'),
+            img(portraitUrl(d.speaker, d.milestone ? 'relieved' : 'neutral'), 'portrait sm'),
             h('span', { class: 'talk-text' }, h('strong', { text: c.name }), h('span', { class: 'muted', text: d.title })),
             h('span', { class: 'talk-cta', text: 'Listen' }),
           );
@@ -557,9 +557,10 @@ export function satchelView(ctx: ViewCtx): HTMLElement {
               h(
                 'button',
                 { class: `item-tile ${rarityClass(id)}`, attrs: { type: 'button', 'aria-label': `${ITEMS[id].name}, ${state.inventory[id]}` }, on: { click: () => act.openItem(id) } },
-                img(itemIconUrl(id), 'px-icon lg'),
+                img(itemIconUrl(id), 'px-icon'),
                 h('span', { class: 'tile-count', text: state.inventory[id].toLocaleString() }),
                 h('span', { class: 'tile-name', text: ITEMS[id].name }),
+                h('span', { class: 'tile-rarity', text: ITEMS[id].rarity }),
               ),
             ),
           ),
@@ -595,6 +596,7 @@ export function journalView(ctx: ViewCtx): HTMLElement {
               attrs: { type: 'button', disabled: !has },
               on: { click: () => act.openDiscovery(d.id) },
             },
+            img(discoveryIconUrl(d.id), has ? 'px-icon' : 'px-icon silhouette'),
             h('span', { class: 'disc-cat', text: has ? CATEGORY_NAMES[d.category] : LOCATIONS[d.location].name }),
             h('span', { class: 'disc-name', text: has ? d.name : '???' }),
           ),
@@ -607,7 +609,7 @@ export function journalView(ctx: ViewCtx): HTMLElement {
       const convs = DIALOGUES.filter((d) => d.speaker === sid && state.dialogues.unlocked.includes(d.id));
       return card(
         'person',
-        h('div', { class: 'row gap' }, img(portraitUrl(sid), 'portrait'), h('div', null, h('h3', { text: convs.length ? c.name : '???' }), h('p', { class: 'muted small', text: convs.length ? c.role : 'Not yet met' }))),
+        h('div', { class: 'row gap' }, img(portraitUrl(sid), convs.length ? 'portrait md' : 'portrait md silhouette'), h('div', null, h('h3', { text: convs.length ? c.name : '???' }), h('p', { class: 'muted small', text: convs.length ? c.role : 'Not yet met' }))),
         convs.length
           ? h(
               'ul',

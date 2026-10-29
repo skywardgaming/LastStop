@@ -1,0 +1,1138 @@
+{
+  "sourceCommit": "def8e066477acebd1369f6b868dc616aaafe6013",
+  "checks": [
+    "Every manifest PNG decoded and dimensions checked",
+    "Binary alpha on pixel sprites; stepped partial alpha only on effects",
+    "All 17 repository inventory IDs covered",
+    "All 12 repository discovery IDs covered",
+    "Five non-overlapping repair regions",
+    "All 32 repair combinations preserve train alpha silhouette",
+    "All five repairs reproduce repaired master byte-for-byte",
+    "All PNGs listed in manifest; CSS asset references exist; preview JavaScript parses"
+  ],
+  "assets": [
+    {
+      "path": "assets/items/scrapIron.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 814,
+      "opaquePixels": 210,
+      "partialAlphaPixels": 0,
+      "sha256": "d822f40e5d7aca3d8e8de092e9bbdc24fe67f10890ccb9475ce9b1eebac476bc"
+    },
+    {
+      "path": "assets/items/coalLump.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 548,
+      "opaquePixels": 476,
+      "partialAlphaPixels": 0,
+      "sha256": "ceb4d2776b0f34028f0e35a33fb7f18511619c8914bf723ea02ecb0fc395466c"
+    },
+    {
+      "path": "assets/items/glassShard.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 744,
+      "opaquePixels": 280,
+      "partialAlphaPixels": 0,
+      "sha256": "04b7a916ad8a20c363bc89233c48e4071b4191e28e0407d5ec9bab9a92b4a4f4"
+    },
+    {
+      "path": "assets/items/copperWire.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 646,
+      "opaquePixels": 378,
+      "partialAlphaPixels": 0,
+      "sha256": "ca00094f47509b8ddff94e835abb047bd070221d54eff70e8cce78de7ede683a"
+    },
+    {
+      "path": "assets/items/brassCog.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 553,
+      "opaquePixels": 471,
+      "partialAlphaPixels": 0,
+      "sha256": "cee9349c315db34eab5355d218cda68660274f6a3f4c5df3c5e5b92a9587a997"
+    },
+    {
+      "path": "assets/items/signalRelay.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 618,
+      "opaquePixels": 406,
+      "partialAlphaPixels": 0,
+      "sha256": "9037b0c489200357a1cce22a447741e8edbceface465625f1606011b480cda0b"
+    },
+    {
+      "path": "assets/items/cyanPrism.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 620,
+      "opaquePixels": 404,
+      "partialAlphaPixels": 0,
+      "sha256": "3eba69f821274a9104539e08df957264e698d8c3056a65586d739f7cd411f5e3"
+    },
+    {
+      "path": "assets/items/oakTimber.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 687,
+      "opaquePixels": 337,
+      "partialAlphaPixels": 0,
+      "sha256": "972e549b64ca451d7dc3a71783b068cde9586892b123541eeedd505c6317e0b7"
+    },
+    {
+      "path": "assets/items/steelRivets.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 535,
+      "opaquePixels": 489,
+      "partialAlphaPixels": 0,
+      "sha256": "96d45366975bfab1e9feb91dc696beb4b393ae58663f87ecd3c2f6a7dfb806ff"
+    },
+    {
+      "path": "assets/items/pressureGauge.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 647,
+      "opaquePixels": 377,
+      "partialAlphaPixels": 0,
+      "sha256": "35646d893db1ee4b241e4a1142079139174773c156eeb7dd8c8f119678f39d58"
+    },
+    {
+      "path": "assets/items/ironPlate.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 601,
+      "opaquePixels": 423,
+      "partialAlphaPixels": 0,
+      "sha256": "799b9cabcfa74185557548fd1d40ac0813057f69affaacffb1a49c777c4fc121"
+    },
+    {
+      "path": "assets/items/fuelBrick.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 688,
+      "opaquePixels": 336,
+      "partialAlphaPixels": 0,
+      "sha256": "e95b3257b34731a668850852e7c20a5610d0f108486c7a29691e9aeea3405ba4"
+    },
+    {
+      "path": "assets/items/polishedLens.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 492,
+      "opaquePixels": 532,
+      "partialAlphaPixels": 0,
+      "sha256": "1f8bef2c101a4354586edf5a5bb2f579aee03267b99beac31c1734e22abe81c5"
+    },
+    {
+      "path": "assets/items/copperCoil.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 601,
+      "opaquePixels": 423,
+      "partialAlphaPixels": 0,
+      "sha256": "ad3aa5829bc391e3eb6a9e6cf9a2f1d511e37307c1026df4f018ac4cac42f21b"
+    },
+    {
+      "path": "assets/items/timberBeam.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 720,
+      "opaquePixels": 304,
+      "partialAlphaPixels": 0,
+      "sha256": "ebf1e6a66daa45008867c756578449a73a6e0d1a794309d3187b253b49c77bf5"
+    },
+    {
+      "path": "assets/items/patchPanel.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 414,
+      "opaquePixels": 610,
+      "partialAlphaPixels": 0,
+      "sha256": "2d0cfa5241237e8d8f79b9270e36bf21003b6cbe2067f4d5cbf60aa38baa9f41"
+    },
+    {
+      "path": "assets/items/gaugeAssembly.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 624,
+      "opaquePixels": 400,
+      "partialAlphaPixels": 0,
+      "sha256": "e2e5ee35c8d02c67bd42858302d687ffbbd65936fe6bd88c030ac03410a96304"
+    },
+    {
+      "path": "assets/items/tornTimetable.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 560,
+      "opaquePixels": 464,
+      "partialAlphaPixels": 0,
+      "sha256": "9fa97f1a68bfcd0f3737eed31ed28f74789ca993ba1e6900ea21d385a647e19e"
+    },
+    {
+      "path": "assets/items/kilnToken.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 683,
+      "opaquePixels": 341,
+      "partialAlphaPixels": 0,
+      "sha256": "ef1e921061668df1fd80d95bdfbfe8d13b1c4bd1ae923177f1c955fbf6c3ccfa"
+    },
+    {
+      "path": "assets/items/knittedMitten.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 728,
+      "opaquePixels": 296,
+      "partialAlphaPixels": 0,
+      "sha256": "c7a5495e6368d8fab285479df649c564a8d75d1131bdc832b469baf08ce9ae2a"
+    },
+    {
+      "path": "assets/items/stoppedWatch.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 748,
+      "opaquePixels": 276,
+      "partialAlphaPixels": 0,
+      "sha256": "19f935ccf8b0d0f2b70a26f4569c6379c0111fe3810ac9c0689de6940e158d07"
+    },
+    {
+      "path": "assets/items/signalLog.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 646,
+      "opaquePixels": 378,
+      "partialAlphaPixels": 0,
+      "sha256": "df5adfb60325ac3cf29a557490940a8f24ca0a24bddbbfbcd95cd3c8462de582"
+    },
+    {
+      "path": "assets/items/shedKey.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 758,
+      "opaquePixels": 266,
+      "partialAlphaPixels": 0,
+      "sha256": "9ae03851234c5d86eaf7ede483c4804b78e3c1b2128d5e8eda4c86b4b753dd0e"
+    },
+    {
+      "path": "assets/items/hummingRelay.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 721,
+      "opaquePixels": 303,
+      "partialAlphaPixels": 0,
+      "sha256": "f3fcd9508ccf9ea17d7110a45941c0c6f3e57199a47971c9038b9a8abae7f220"
+    },
+    {
+      "path": "assets/items/stationPhoto.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 527,
+      "opaquePixels": 497,
+      "partialAlphaPixels": 0,
+      "sha256": "fb556d2edbd72f99bdbd24ebd45f4420d97a31999de96f39842ce87ccb8fe7e1"
+    },
+    {
+      "path": "assets/items/firemansLedger.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 635,
+      "opaquePixels": 389,
+      "partialAlphaPixels": 0,
+      "sha256": "d5a407a5b7a4a6dd64ee73fec91590d7778d225a08f5ef80055eed4e88906155"
+    },
+    {
+      "path": "assets/items/kilnPlans.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 629,
+      "opaquePixels": 395,
+      "partialAlphaPixels": 0,
+      "sha256": "cf27f8c3691a44db4a76d0738e488b155a654bdecf1350311de1042c82a14993"
+    },
+    {
+      "path": "assets/items/coldValve.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 597,
+      "opaquePixels": 427,
+      "partialAlphaPixels": 0,
+      "sha256": "7281ad1727d27800b76fc830c75bc162acfe0fb40dbe9b2049187599ee05fea7"
+    },
+    {
+      "path": "assets/items/cyanDisc.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 505,
+      "opaquePixels": 519,
+      "partialAlphaPixels": 0,
+      "sha256": "d7c58a0abbdfc6e69125e6fa9691c3aaeabcbbe324d32637a18f0c55afd11176"
+    },
+    {
+      "path": "assets/items/satchel.png",
+      "width": 32,
+      "height": 32,
+      "transparentPixels": 508,
+      "opaquePixels": 516,
+      "partialAlphaPixels": 0,
+      "sha256": "48d1dc094e3de7ad7be15d89f10d3b721b11abd64f1469a84ed0ad0eaf354dd1"
+    },
+    {
+      "path": "assets/characters/conductor_neutral.png",
+      "width": 96,
+      "height": 96,
+      "transparentPixels": 4122,
+      "opaquePixels": 5094,
+      "partialAlphaPixels": 0,
+      "sha256": "211a0293465b98e20e8aaa48696a3c202e8ee76f698e887a2f109d5eb0332f42"
+    },
+    {
+      "path": "assets/characters/conductor_concerned.png",
+      "width": 96,
+      "height": 96,
+      "transparentPixels": 4090,
+      "opaquePixels": 5126,
+      "partialAlphaPixels": 0,
+      "sha256": "f5579db05abde6b4fc2df4546737727a2eefde864186147ffaaecb2debb9862e"
+    },
+    {
+      "path": "assets/characters/conductor_relieved.png",
+      "width": 96,
+      "height": 96,
+      "transparentPixels": 4086,
+      "opaquePixels": 5130,
+      "partialAlphaPixels": 0,
+      "sha256": "a5b771cb19c8f2f8e28c391b43a40416f5bc729eed15fd539bd9bbbf867818c4"
+    },
+    {
+      "path": "assets/characters/mara_neutral.png",
+      "width": 96,
+      "height": 96,
+      "transparentPixels": 3937,
+      "opaquePixels": 5279,
+      "partialAlphaPixels": 0,
+      "sha256": "9f31893fab004efd0b95bddbed732bae4335be17984e1b16cec678cf59a29866"
+    },
+    {
+      "path": "assets/characters/mara_concerned.png",
+      "width": 96,
+      "height": 96,
+      "transparentPixels": 3961,
+      "opaquePixels": 5255,
+      "partialAlphaPixels": 0,
+      "sha256": "d018dc2afd50b45de80264abaaf8379eeb3ce70afd8ef534e0e53cd154e00eb6"
+    },
+    {
+      "path": "assets/characters/mara_relieved.png",
+      "width": 96,
+      "height": 96,
+      "transparentPixels": 3941,
+      "opaquePixels": 5275,
+      "partialAlphaPixels": 0,
+      "sha256": "30399e65d13edca2c1bda031606411769d4dc8dd85659ea70a9a4f311f86fd00"
+    },
+    {
+      "path": "assets/characters/tobin_neutral.png",
+      "width": 96,
+      "height": 96,
+      "transparentPixels": 3362,
+      "opaquePixels": 5854,
+      "partialAlphaPixels": 0,
+      "sha256": "17915fd70f2924533366bdfdf4b070dafdb5adc6320aa548b48e85882e51a369"
+    },
+    {
+      "path": "assets/characters/tobin_concerned.png",
+      "width": 96,
+      "height": 96,
+      "transparentPixels": 3428,
+      "opaquePixels": 5788,
+      "partialAlphaPixels": 0,
+      "sha256": "04ae0bfa0516c72ba6cb755303bff31b60abdbe33aa04b0d03c156b4d15ba77a"
+    },
+    {
+      "path": "assets/characters/tobin_relieved.png",
+      "width": 96,
+      "height": 96,
+      "transparentPixels": 3410,
+      "opaquePixels": 5806,
+      "partialAlphaPixels": 0,
+      "sha256": "6ee22deff36fb505a3ace9c3b53d0e34c2544d01234334a94b5f00fc5c6b79f9"
+    },
+    {
+      "path": "assets/characters/conductor_figure_0.png",
+      "width": 32,
+      "height": 48,
+      "transparentPixels": 902,
+      "opaquePixels": 634,
+      "partialAlphaPixels": 0,
+      "sha256": "5fa5bf73a3072f11cec9a1b28857207dc58ccb3fd41625dd8f9e2124ce6693a9"
+    },
+    {
+      "path": "assets/characters/conductor_figure_1.png",
+      "width": 32,
+      "height": 48,
+      "transparentPixels": 930,
+      "opaquePixels": 606,
+      "partialAlphaPixels": 0,
+      "sha256": "f95ecbde3d52a7713fb232691cf2ccb4fe291464886f7fddf7a68e538e6833ee"
+    },
+    {
+      "path": "assets/characters/conductor_figure_2.png",
+      "width": 32,
+      "height": 48,
+      "transparentPixels": 929,
+      "opaquePixels": 607,
+      "partialAlphaPixels": 0,
+      "sha256": "43e3dcf6474aa74370c6300e79975893c4eac536785a1feeb5f26f5ab48aac0e"
+    },
+    {
+      "path": "assets/characters/conductor_poses.png",
+      "width": 96,
+      "height": 48,
+      "transparentPixels": 2761,
+      "opaquePixels": 1847,
+      "partialAlphaPixels": 0,
+      "sha256": "14af25dbf1ba39d2118f850b9b2ae62edd953dc3adcf22dd46e563ebe550cfb1"
+    },
+    {
+      "path": "assets/characters/mara_figure_0.png",
+      "width": 32,
+      "height": 48,
+      "transparentPixels": 930,
+      "opaquePixels": 606,
+      "partialAlphaPixels": 0,
+      "sha256": "483356b8652c077af41a0a2c346445230fbaad70fe3758bf189d58a5fe78d889"
+    },
+    {
+      "path": "assets/characters/mara_figure_1.png",
+      "width": 32,
+      "height": 48,
+      "transparentPixels": 962,
+      "opaquePixels": 574,
+      "partialAlphaPixels": 0,
+      "sha256": "b8995235c53000a468cfbced2f7bf9fa373ca528045491d17c7ad4c49b03a52b"
+    },
+    {
+      "path": "assets/characters/mara_figure_2.png",
+      "width": 32,
+      "height": 48,
+      "transparentPixels": 904,
+      "opaquePixels": 632,
+      "partialAlphaPixels": 0,
+      "sha256": "70645f07e35e65942cc5753945258b84e53bc8c3c486730ed2509c48cbd2a58b"
+    },
+    {
+      "path": "assets/characters/mara_poses.png",
+      "width": 96,
+      "height": 48,
+      "transparentPixels": 2796,
+      "opaquePixels": 1812,
+      "partialAlphaPixels": 0,
+      "sha256": "b5f76cc9f728e93d82f80786448a8d2b0367df8657edf7e11588503417fe38f7"
+    },
+    {
+      "path": "assets/characters/tobin_figure_0.png",
+      "width": 32,
+      "height": 48,
+      "transparentPixels": 954,
+      "opaquePixels": 582,
+      "partialAlphaPixels": 0,
+      "sha256": "1683a5b89f25b0c1192c93100750a9a6689789f23ea6f271da87aead295021fe"
+    },
+    {
+      "path": "assets/characters/tobin_figure_1.png",
+      "width": 32,
+      "height": 48,
+      "transparentPixels": 1013,
+      "opaquePixels": 523,
+      "partialAlphaPixels": 0,
+      "sha256": "54fdc6e938b2b1ee1683bc3715177892614ff5cf3bd9e94b33a32f804849dd1e"
+    },
+    {
+      "path": "assets/characters/tobin_figure_2.png",
+      "width": 32,
+      "height": 48,
+      "transparentPixels": 939,
+      "opaquePixels": 597,
+      "partialAlphaPixels": 0,
+      "sha256": "4b798d3233ec0c2bcd46f6df9aebfbc70a3c21d29a8ca8cafa629d64eb4bc736"
+    },
+    {
+      "path": "assets/characters/tobin_poses.png",
+      "width": 96,
+      "height": 48,
+      "transparentPixels": 2906,
+      "opaquePixels": 1702,
+      "partialAlphaPixels": 0,
+      "sha256": "6fb98be73902d013de52b05f46862d42b2e17f0c8357d0d3b314c6e2b3c09d29"
+    },
+    {
+      "path": "assets/environments/stationSign.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1534,
+      "opaquePixels": 770,
+      "partialAlphaPixels": 0,
+      "sha256": "915551841b80f46665594edfc6a8f81635f2ff7ba35b8859cc8b3da85d80a2bf"
+    },
+    {
+      "path": "assets/environments/lantern.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1897,
+      "opaquePixels": 407,
+      "partialAlphaPixels": 0,
+      "sha256": "682f8ccaeaa232258f163547258fecbbddf0b14aa8860d0e2ef628feb425c511"
+    },
+    {
+      "path": "assets/environments/cyanSignal.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1995,
+      "opaquePixels": 309,
+      "partialAlphaPixels": 0,
+      "sha256": "542b65280661d74f8824ffd7d1dba4c622ca55d4286e7bf1ae4fbdabcc41296b"
+    },
+    {
+      "path": "assets/environments/luggage.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1125,
+      "opaquePixels": 1179,
+      "partialAlphaPixels": 0,
+      "sha256": "81a2d291c13c82c014544ea0c6c139494ea0759223940d3bd7ff7b7c0436e6da"
+    },
+    {
+      "path": "assets/environments/cabinet_closed.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1459,
+      "opaquePixels": 845,
+      "partialAlphaPixels": 0,
+      "sha256": "7c52947b35dc76dd474f5dc9bc6007cb4b1d547201668b3efbd8a8b8ba6a723f"
+    },
+    {
+      "path": "assets/environments/cabinet_open.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1224,
+      "opaquePixels": 1080,
+      "partialAlphaPixels": 0,
+      "sha256": "44c1901f125355c81c7a03756bc04036cb478364e33ced9261a304f22e717c42"
+    },
+    {
+      "path": "assets/environments/shed_closed.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1085,
+      "opaquePixels": 1219,
+      "partialAlphaPixels": 0,
+      "sha256": "ca68b226978104b015a5f2412df9378aa70364d06ca18c4a3b546878394b4a09"
+    },
+    {
+      "path": "assets/environments/shed_open.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1090,
+      "opaquePixels": 1214,
+      "partialAlphaPixels": 0,
+      "sha256": "7b7396527829b6636fa122332a10260a5ea6ecfaeac525c93503f2f721d09fb7"
+    },
+    {
+      "path": "assets/environments/ashPlanter.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1827,
+      "opaquePixels": 477,
+      "partialAlphaPixels": 0,
+      "sha256": "3224e5a415e4bd02b459e4ff4ca3b39b73a9e4f7d609c3c2d3ee867bfd9da2d5"
+    },
+    {
+      "path": "assets/environments/bench.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1718,
+      "opaquePixels": 586,
+      "partialAlphaPixels": 0,
+      "sha256": "64dd60d0eda89b775132456c7b7b472289a0bad4085e7141c6923c9036067099"
+    },
+    {
+      "path": "assets/environments/toolBag.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1452,
+      "opaquePixels": 852,
+      "partialAlphaPixels": 0,
+      "sha256": "a28ee2dcf068aaab1f719ee23f41687b5f99d953c0b5ea590d56f8c2722e2d40"
+    },
+    {
+      "path": "assets/environments/fence.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 1717,
+      "opaquePixels": 587,
+      "partialAlphaPixels": 0,
+      "sha256": "2ab14cdc1edbed3f47064e4096bd9af3ce1a6a37125ff56f5da4557d1a841324"
+    },
+    {
+      "path": "assets/ui/panel_iron.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 593,
+      "opaquePixels": 1711,
+      "partialAlphaPixels": 0,
+      "sha256": "d6e3a2355c84d2e245106c3b6f1699bf443a8e3fa23fd653f76d875d65a2d342"
+    },
+    {
+      "path": "assets/ui/panel_selected.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 547,
+      "opaquePixels": 1757,
+      "partialAlphaPixels": 0,
+      "sha256": "1c3571d9e3cfb327305bb47c23336165fc28d44e4354679bed3b605e73c65f3a"
+    },
+    {
+      "path": "assets/ui/panel_disabled.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 587,
+      "opaquePixels": 1717,
+      "partialAlphaPixels": 0,
+      "sha256": "8af33dded0eb867538bb7d408da71e6c4a21c4a3406ed2a28fd75e4056a14afd"
+    },
+    {
+      "path": "assets/ui/panel_wood.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 543,
+      "opaquePixels": 1761,
+      "partialAlphaPixels": 0,
+      "sha256": "19294d1bdcde817622de1b4054df30087742f08a7757dc63393059f98f499a50"
+    },
+    {
+      "path": "assets/ui/panel_ceramic.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 568,
+      "opaquePixels": 1736,
+      "partialAlphaPixels": 0,
+      "sha256": "3edf7c50755fa5671134a535ba7b3b9afd8fb5ada667871fa8212745feeada39"
+    },
+    {
+      "path": "assets/ui/panel_engineering.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 545,
+      "opaquePixels": 1759,
+      "partialAlphaPixels": 0,
+      "sha256": "77316fa4ea4169291dbff97e74466c35b77971a1a805e0a5e8edf265c8d592f4"
+    },
+    {
+      "path": "assets/ui/slot_common.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 548,
+      "opaquePixels": 1756,
+      "partialAlphaPixels": 0,
+      "sha256": "e608afe85e1450c19bb3a377d7718981039a950d363b3dfba96f6d7d94d79e55"
+    },
+    {
+      "path": "assets/ui/slot_uncommon.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 551,
+      "opaquePixels": 1753,
+      "partialAlphaPixels": 0,
+      "sha256": "4f7e5feb5a5994f791ad807bc05f89414d721e03bea803d13aa8a17a54d37b52"
+    },
+    {
+      "path": "assets/ui/slot_rare.png",
+      "width": 48,
+      "height": 48,
+      "transparentPixels": 551,
+      "opaquePixels": 1753,
+      "partialAlphaPixels": 0,
+      "sha256": "0c91589c3fd977ad26436718904d4da2bc6767b80a7bf66eb2db921c8c85d5c1"
+    },
+    {
+      "path": "assets/environments/ashvale_static_alternative.png",
+      "width": 384,
+      "height": 216,
+      "transparentPixels": 0,
+      "opaquePixels": 82944,
+      "partialAlphaPixels": 0,
+      "sha256": "088db56ccf17ebb4b4f8728fb9289c8200f568da2a11fbaf0c53e1ac89b88415"
+    },
+    {
+      "path": "assets/environments/sky.png",
+      "width": 384,
+      "height": 216,
+      "transparentPixels": 0,
+      "opaquePixels": 82944,
+      "partialAlphaPixels": 0,
+      "sha256": "37639c5453164f7819a2b0e67833c8d8ee11e659bae68264327fcf5c5b5da0c3"
+    },
+    {
+      "path": "assets/environments/skyline_piece.png",
+      "width": 384,
+      "height": 70,
+      "transparentPixels": 16568,
+      "opaquePixels": 10312,
+      "partialAlphaPixels": 0,
+      "sha256": "a048f1413ab8daeeb5456bc32dcd0108ce9fab7dd39896efa6ab1694e9a27b24"
+    },
+    {
+      "path": "assets/environments/skyline.png",
+      "width": 384,
+      "height": 216,
+      "transparentPixels": 72632,
+      "opaquePixels": 10312,
+      "partialAlphaPixels": 0,
+      "sha256": "8a0c9a200d14c2213d9f436513ef208f530a86625094483f066a919115ebe11b"
+    },
+    {
+      "path": "assets/environments/station_piece.png",
+      "width": 300,
+      "height": 100,
+      "transparentPixels": 11619,
+      "opaquePixels": 18381,
+      "partialAlphaPixels": 0,
+      "sha256": "6cbb94d83aac5156d4d256a867e52f0623d9ba696cbafd7c264af034390fa5dd"
+    },
+    {
+      "path": "assets/environments/station_buildings.png",
+      "width": 384,
+      "height": 216,
+      "transparentPixels": 64563,
+      "opaquePixels": 18381,
+      "partialAlphaPixels": 0,
+      "sha256": "9abc2add25a65374e63440afc68f34f20a34cc36f276eea0dab41ae3c11c31c1"
+    },
+    {
+      "path": "assets/environments/canopy_piece.png",
+      "width": 222,
+      "height": 49,
+      "transparentPixels": 7458,
+      "opaquePixels": 3420,
+      "partialAlphaPixels": 0,
+      "sha256": "72ccd6578885677c039d03a68650fc6f262aabd7217234979ab1dfec4ee7d57d"
+    },
+    {
+      "path": "assets/environments/platform_architecture.png",
+      "width": 384,
+      "height": 216,
+      "transparentPixels": 79524,
+      "opaquePixels": 3420,
+      "partialAlphaPixels": 0,
+      "sha256": "8cc8be9dba4da224d23172b0bdccd41b66cd09a4902831007b586ea79b4f4060"
+    },
+    {
+      "path": "assets/environments/tracks_ground.png",
+      "width": 384,
+      "height": 216,
+      "transparentPixels": 56064,
+      "opaquePixels": 26880,
+      "partialAlphaPixels": 0,
+      "sha256": "f01922f62dc9f6bbf485f7837b38078c80331b09f0e836a680080bf357efebcf"
+    },
+    {
+      "path": "assets/locomotive/repair_fireboxDoor.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 25792,
+      "opaquePixels": 320,
+      "partialAlphaPixels": 0,
+      "sha256": "71d8e686767ce5bb21c56c607f825ad96fdbb58c6742c0f5ca22b84de32a255e"
+    },
+    {
+      "path": "assets/locomotive/repair_headlamp.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 25968,
+      "opaquePixels": 144,
+      "partialAlphaPixels": 0,
+      "sha256": "f7b3bc16fc228478d4c081564b4ecefa7caf3942dacf5fffc5bc4731d34e3f61"
+    },
+    {
+      "path": "assets/locomotive/repair_dryCab.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 25124,
+      "opaquePixels": 988,
+      "partialAlphaPixels": 0,
+      "sha256": "0a9b06998d0ac6229d0efec9826720d82f23670fa55afaa5e3f5df0c33d77ecd"
+    },
+    {
+      "path": "assets/locomotive/repair_reinforcedStorage.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 24938,
+      "opaquePixels": 1174,
+      "partialAlphaPixels": 0,
+      "sha256": "6a925326fbd59904a1d9328010e9264bc7be0b91fbd2bff8994954bf9af05017"
+    },
+    {
+      "path": "assets/locomotive/repair_boiler.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 23797,
+      "opaquePixels": 2315,
+      "partialAlphaPixels": 0,
+      "sha256": "4215132729426840b7853d1913f9ee027f915566ef0f37862817f95c4f8d6708"
+    },
+    {
+      "path": "assets/locomotive/no9_base_damaged.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 13214,
+      "opaquePixels": 12898,
+      "partialAlphaPixels": 0,
+      "sha256": "ae33bc1c1440276771d72b4e8d6b19a93c809724a290a2eed5f918dffae35017"
+    },
+    {
+      "path": "assets/locomotive/no9_all_repaired.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 13214,
+      "opaquePixels": 12898,
+      "partialAlphaPixels": 0,
+      "sha256": "2a88f3161b3d46a5b083fab972931a594e9080ce19d13f7399e0ed11b5c67642"
+    },
+    {
+      "path": "assets/locomotive/no9_stage_0.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 13214,
+      "opaquePixels": 12898,
+      "partialAlphaPixels": 0,
+      "sha256": "ae33bc1c1440276771d72b4e8d6b19a93c809724a290a2eed5f918dffae35017"
+    },
+    {
+      "path": "assets/locomotive/no9_stage_1.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 13214,
+      "opaquePixels": 12898,
+      "partialAlphaPixels": 0,
+      "sha256": "ba02dd67f44dedfcbf21e96de1c02ff8c3b5a8090959adaa5b3c54ac9d4dd796"
+    },
+    {
+      "path": "assets/locomotive/no9_stage_2.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 13214,
+      "opaquePixels": 12898,
+      "partialAlphaPixels": 0,
+      "sha256": "ba53ba104ad79d989f429051d9fb13610197d5e48c648eb970f6988f6dc7668e"
+    },
+    {
+      "path": "assets/locomotive/no9_stage_3.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 13214,
+      "opaquePixels": 12898,
+      "partialAlphaPixels": 0,
+      "sha256": "24eae3d02ac63e988a9823a45139db8e60131c59b9f85b0f0a5e5665170aa062"
+    },
+    {
+      "path": "assets/locomotive/no9_stage_4.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 13214,
+      "opaquePixels": 12898,
+      "partialAlphaPixels": 0,
+      "sha256": "76ef5910aa1f1c1023977ee6cfa2721c6d4ecd11e42d3bb40b353e872895fec1"
+    },
+    {
+      "path": "assets/locomotive/no9_stage_5.png",
+      "width": 256,
+      "height": 102,
+      "transparentPixels": 13214,
+      "opaquePixels": 12898,
+      "partialAlphaPixels": 0,
+      "sha256": "2a88f3161b3d46a5b083fab972931a594e9080ce19d13f7399e0ed11b5c67642"
+    },
+    {
+      "path": "assets/ui/station.png",
+      "width": 24,
+      "height": 24,
+      "transparentPixels": 443,
+      "opaquePixels": 133,
+      "partialAlphaPixels": 0,
+      "sha256": "0c4ebe49f9f956f3e9fc5fe08359be42da4b240d6624088d41f9d5c9e4ea8e77"
+    },
+    {
+      "path": "assets/ui/skills.png",
+      "width": 24,
+      "height": 24,
+      "transparentPixels": 413,
+      "opaquePixels": 163,
+      "partialAlphaPixels": 0,
+      "sha256": "7d13cfbebf83ac31dc5528c4b9ddd3e2cedd1284c93468f350cc40892420a8dd"
+    },
+    {
+      "path": "assets/ui/train.png",
+      "width": 24,
+      "height": 24,
+      "transparentPixels": 358,
+      "opaquePixels": 218,
+      "partialAlphaPixels": 0,
+      "sha256": "89c0bba8b5e81abcd340a7e2ddcfe851ef7452a15b386675d009d562556b4b04"
+    },
+    {
+      "path": "assets/ui/satchel.png",
+      "width": 24,
+      "height": 24,
+      "transparentPixels": 344,
+      "opaquePixels": 232,
+      "partialAlphaPixels": 0,
+      "sha256": "1ad78783fab743853aca254f30ba363e9fefcae535ad6e1b40cd94706f5f486c"
+    },
+    {
+      "path": "assets/ui/journal.png",
+      "width": 24,
+      "height": 24,
+      "transparentPixels": 288,
+      "opaquePixels": 288,
+      "partialAlphaPixels": 0,
+      "sha256": "a37273c2574bd08fabe0e93f798b2142312d2c0790f1a7406b67bc81b54f33db"
+    },
+    {
+      "path": "assets/ui/settings.png",
+      "width": 24,
+      "height": 24,
+      "transparentPixels": 364,
+      "opaquePixels": 212,
+      "partialAlphaPixels": 0,
+      "sha256": "ec88eae205330aef9f9dececafd330e2bc159e7a71b02533b1efefedb7ed3a17"
+    },
+    {
+      "path": "assets/ui/marker_derelictPlatform.png",
+      "width": 24,
+      "height": 24,
+      "transparentPixels": 488,
+      "opaquePixels": 88,
+      "partialAlphaPixels": 0,
+      "sha256": "cee93f2987090a2f8fb2c83faa3b8e8759b3c809bd017243ae170aac77dc4e91"
+    },
+    {
+      "path": "assets/ui/marker_signalCabinet.png",
+      "width": 24,
+      "height": 24,
+      "transparentPixels": 443,
+      "opaquePixels": 133,
+      "partialAlphaPixels": 0,
+      "sha256": "0c4ebe49f9f956f3e9fc5fe08359be42da4b240d6624088d41f9d5c9e4ea8e77"
+    },
+    {
+      "path": "assets/ui/marker_maintenanceShed.png",
+      "width": 24,
+      "height": 24,
+      "transparentPixels": 413,
+      "opaquePixels": 163,
+      "partialAlphaPixels": 0,
+      "sha256": "7d13cfbebf83ac31dc5528c4b9ddd3e2cedd1284c93468f350cc40892420a8dd"
+    },
+    {
+      "path": "assets/ui/progress_amber.png",
+      "width": 32,
+      "height": 8,
+      "transparentPixels": 0,
+      "opaquePixels": 256,
+      "partialAlphaPixels": 0,
+      "sha256": "7c3f170142c48ec3fee6a1f473e829c711bb4909bf6ec9003a0e5097ab2d55fb"
+    },
+    {
+      "path": "assets/ui/progress_cyan.png",
+      "width": 32,
+      "height": 8,
+      "transparentPixels": 0,
+      "opaquePixels": 256,
+      "partialAlphaPixels": 0,
+      "sha256": "e5a4e5fa38bb25c0ea76bf91803a17bc534a6e71be9068b3f94206786fdd5407"
+    },
+    {
+      "path": "assets/ui/progress_copper.png",
+      "width": 32,
+      "height": 8,
+      "transparentPixels": 0,
+      "opaquePixels": 256,
+      "partialAlphaPixels": 0,
+      "sha256": "2d01dc2ac4b0aa0bc373c59c6bf9ada83d7bc817d0458810f2df7cbb93db67ed"
+    },
+    {
+      "path": "assets/effects/steam.png",
+      "width": 192,
+      "height": 32,
+      "transparentPixels": 5558,
+      "opaquePixels": 0,
+      "partialAlphaPixels": 586,
+      "sha256": "54d3c34ab1d76acaf1e31b86327f314716dbd244145d992a51cbe76946f82222"
+    },
+    {
+      "path": "assets/effects/rain.png",
+      "width": 128,
+      "height": 32,
+      "transparentPixels": 3976,
+      "opaquePixels": 0,
+      "partialAlphaPixels": 120,
+      "sha256": "5125258fd5a711ad5f22e07cd3ac7bd667e666d7c3efe22cfc9a4827bc9137df"
+    },
+    {
+      "path": "assets/effects/lantern_glow.png",
+      "width": 128,
+      "height": 32,
+      "transparentPixels": 2188,
+      "opaquePixels": 0,
+      "partialAlphaPixels": 1908,
+      "sha256": "41cf79fc9889620495b7fe6dd748d99198cbafb14068ca14277542fad4816870"
+    },
+    {
+      "path": "assets/effects/signal_pulse.png",
+      "width": 128,
+      "height": 32,
+      "transparentPixels": 2188,
+      "opaquePixels": 0,
+      "partialAlphaPixels": 1908,
+      "sha256": "b25c783ed47ed08efe0e3d1c7492ac80d823fc2f8c28c3ed0d11c758fb65f93b"
+    },
+    {
+      "path": "assets/effects/window_light.png",
+      "width": 64,
+      "height": 16,
+      "transparentPixels": 668,
+      "opaquePixels": 0,
+      "partialAlphaPixels": 356,
+      "sha256": "6b01de0d963d2eeab23aef07743c7951925bd5a51b208abd2cd0989d62198a95"
+    },
+    {
+      "path": "assets/effects/rare_discovery.png",
+      "width": 192,
+      "height": 32,
+      "transparentPixels": 5904,
+      "opaquePixels": 240,
+      "partialAlphaPixels": 0,
+      "sha256": "39822f09d2b8944d2edbf3adb1c000068c4f3798bfb0827dcf419ad04d614de5"
+    },
+    {
+      "path": "assets/effects/headlamp_glow.png",
+      "width": 192,
+      "height": 48,
+      "transparentPixels": 4496,
+      "opaquePixels": 0,
+      "partialAlphaPixels": 4720,
+      "sha256": "7d8476c309677a7687563899a593e6e7eab96d64e2bbeddef8c3184adf8f780e"
+    },
+    {
+      "path": "assets/previews/figures.png",
+      "width": 420,
+      "height": 504,
+      "transparentPixels": 0,
+      "opaquePixels": 211680,
+      "partialAlphaPixels": 0,
+      "sha256": "9b854c3f7f696582c9bb8429100fcdfe02416f0dcae9cc6bce216d685ed0b464"
+    },
+    {
+      "path": "assets/previews/items.png",
+      "width": 672,
+      "height": 520,
+      "transparentPixels": 0,
+      "opaquePixels": 349440,
+      "partialAlphaPixels": 0,
+      "sha256": "583448601380894d055db6df27a48319caa66900f571d6fa8aa342bebf03bcd5"
+    },
+    {
+      "path": "assets/previews/mobile_layout_reference.png",
+      "width": 390,
+      "height": 844,
+      "transparentPixels": 0,
+      "opaquePixels": 329160,
+      "partialAlphaPixels": 0,
+      "sha256": "266a8dbc5e7aeb237897f6df0528cf452407b15784087b73a268455ade4b0cdc"
+    },
+    {
+      "path": "assets/previews/portraits.png",
+      "width": 612,
+      "height": 654,
+      "transparentPixels": 0,
+      "opaquePixels": 400248,
+      "partialAlphaPixels": 0,
+      "sha256": "7312b9ed2e897843edf978ceb52cf0440929f4204ea159e433c179591f14cc58"
+    },
+    {
+      "path": "assets/previews/props.png",
+      "width": 624,
+      "height": 516,
+      "transparentPixels": 0,
+      "opaquePixels": 321984,
+      "partialAlphaPixels": 0,
+      "sha256": "d84f9c20c6326b1785e4b95ab3a91b7dd7a3bdf06c7c964e52287cfb199ee3ab"
+    },
+    {
+      "path": "assets/previews/scene_damaged.png",
+      "width": 384,
+      "height": 216,
+      "transparentPixels": 0,
+      "opaquePixels": 82944,
+      "partialAlphaPixels": 0,
+      "sha256": "cb7ad9a31df37261d101d70dbecd2ab9197b6379955659b46d683cfafc24e00c"
+    },
+    {
+      "path": "assets/previews/scene_damaged_3x.png",
+      "width": 1152,
+      "height": 648,
+      "transparentPixels": 0,
+      "opaquePixels": 746496,
+      "partialAlphaPixels": 0,
+      "sha256": "e768045167593a704f1f2e12b4994a146edfe8650b77ead28e843a0f35770526"
+    },
+    {
+      "path": "assets/previews/scene_repaired.png",
+      "width": 384,
+      "height": 216,
+      "transparentPixels": 0,
+      "opaquePixels": 82944,
+      "partialAlphaPixels": 0,
+      "sha256": "3658055d633ed49e40212ca6b21b17335f84aa1ef5f0323b6ce8a5c2d93773dc"
+    },
+    {
+      "path": "assets/previews/scene_repaired_3x.png",
+      "width": 1152,
+      "height": 648,
+      "transparentPixels": 0,
+      "opaquePixels": 746496,
+      "partialAlphaPixels": 0,
+      "sha256": "35c6dc0b156fb3b3319419f1c31ac49bf8a544e74095fa74ce8ece3513607b37"
+    },
+    {
+      "path": "assets/previews/train_stages.png",
+      "width": 768,
+      "height": 1956,
+      "transparentPixels": 0,
+      "opaquePixels": 1502208,
+      "partialAlphaPixels": 0,
+      "sha256": "7b4cde2dee9bec39e0d4439fd8ef75a1f0458c9bb11754d486c3285d967ce87d"
+    },
+    {
+      "path": "assets/previews/ui.png",
+      "width": 600,
+      "height": 680,
+      "transparentPixels": 0,
+      "opaquePixels": 408000,
+      "partialAlphaPixels": 0,
+      "sha256": "941692dc054f8d98b122859c99a23b88e39b212be91e0c6b8571b6e983b622c2"
+    }
+  ],
+  "failures": [],
+  "status": "PASS",
+  "mobileValidation": {
+    "staticReference": "390px layout visually inspected",
+    "browser": "NOT RUN: Chromium absent and download invalid",
+    "iphoneSafari": "NOT RUN; required after integration"
+  }
+}

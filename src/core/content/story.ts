@@ -150,9 +150,13 @@ export const CHARACTERS: Record<SpeakerId, CharacterDef> = {
   tobin: { id: 'tobin', name: 'Tobin Harrow', role: 'Retired fireman' },
 };
 
+export type Mood = 'neutral' | 'concerned' | 'relieved';
+
 export interface DialogueLine {
   speaker: SpeakerId | 'you';
   text: string;
+  /** Portrait expression; neutral when omitted. */
+  mood?: Mood;
 }
 
 export interface DialogueDef {
@@ -176,9 +180,9 @@ export const DIALOGUES: DialogueDef[] = [
       { speaker: 'mara', text: 'You walked here? Nobody walks to Ashvale. The road ends at the kilns.' },
       { speaker: 'mara', text: 'I’m Mara. I keep the signal box lit. Habit, mostly — the line closed before I was born.' },
       { speaker: 'mara', text: 'That engine is No. 9. Last train out of Ashvale. Except it never left.' },
-      { speaker: 'mara', text: 'And every night at 3:17 that far signal turns cyan. Not red, not green. Cyan.' },
-      { speaker: 'you', text: 'What happens if No. 9 runs again?' },
-      { speaker: 'mara', text: 'Find out for me. There’s scrap all along the platform — start with the firebox.' },
+      { speaker: 'mara', text: 'And every night at 3:17 that far signal turns cyan. Not red, not green. Cyan.', mood: 'concerned' },
+      { speaker: 'you', text: 'What happens if No. 9 runs again?', mood: 'concerned' },
+      { speaker: 'mara', text: 'Find out for me. There’s scrap all along the platform — start with the firebox.', mood: 'relieved' },
     ],
   },
   {
@@ -188,7 +192,7 @@ export const DIALOGUES: DialogueDef[] = [
     when: (s) => found(s, 'tornTimetable'),
     lines: [
       { speaker: 'mara', text: 'The winter timetable. I’ve tried to read that last line a hundred times.' },
-      { speaker: 'mara', text: 'My grandfather drove that service. Edric Venn. He never came home and nobody would say where the line went.' },
+      { speaker: 'mara', text: 'My grandfather drove that service. Edric Venn. He never came home and nobody would say where the line went.', mood: 'concerned' },
     ],
   },
   {
@@ -197,7 +201,7 @@ export const DIALOGUES: DialogueDef[] = [
     speaker: 'mara',
     when: (s) => s.repairs.fireboxDoor,
     lines: [
-      { speaker: 'mara', text: 'She’s glowing. I haven’t seen a fire in that box my whole life.' },
+      { speaker: 'mara', text: 'She’s glowing. I haven’t seen a fire in that box my whole life.', mood: 'relieved' },
       { speaker: 'mara', text: 'With that light you could get the lineside cabinet open. Grandad’s things are still in there, I think.' },
     ],
   },
@@ -217,9 +221,9 @@ export const DIALOGUES: DialogueDef[] = [
     speaker: 'tobin',
     when: (s) => found(s, 'shedKey') && levelForXp(s.skills.scavenging.xp) >= 7,
     lines: [
-      { speaker: 'tobin', text: 'That’s my key. Took you long enough.' },
+      { speaker: 'tobin', text: 'That’s my key. Took you long enough.', mood: 'relieved' },
       { speaker: 'tobin', text: 'Fifty years I’ve kept that oak dry. You want No. 9 to run, you’ll need it, and rivets, and patience.' },
-      { speaker: 'tobin', text: 'Plate first. Then panels. Then the boiler. Don’t skip ahead — boilers remember.' },
+      { speaker: 'tobin', text: 'Plate first. Then panels. Then the boiler. Don’t skip ahead — boilers remember.', mood: 'concerned' },
     ],
   },
   {
@@ -228,7 +232,7 @@ export const DIALOGUES: DialogueDef[] = [
     speaker: 'tobin',
     when: (s) => s.repairs.headlamp,
     lines: [
-      { speaker: 'tobin', text: 'Look at that beam. Straight down the line, and it stops dead at the signal. Always has.' },
+      { speaker: 'tobin', text: 'Look at that beam. Straight down the line, and it stops dead at the signal. Always has.', mood: 'concerned' },
       { speaker: 'tobin', text: 'Light doesn’t stop. Fog doesn’t make walls. Remember that.' },
     ],
   },
@@ -239,7 +243,7 @@ export const DIALOGUES: DialogueDef[] = [
     when: (s) => (s.stats.obtained.cyanPrism ?? 0) > 0,
     lines: [
       { speaker: 'mara', text: 'Let me see that. It’s the signal’s colour exactly.' },
-      { speaker: 'mara', text: 'I wrote to the glassworks once. They said no one ever made a cyan signal lens. Not anywhere.' },
+      { speaker: 'mara', text: 'I wrote to the glassworks once. They said no one ever made a cyan signal lens. Not anywhere.', mood: 'concerned' },
     ],
   },
   {
@@ -248,9 +252,9 @@ export const DIALOGUES: DialogueDef[] = [
     speaker: 'tobin',
     when: (s) => found(s, 'firemansLedger'),
     lines: [
-      { speaker: 'tobin', text: 'You read it, then. I saw red that night. I’ll swear it.' },
-      { speaker: 'tobin', text: 'Edric saw cyan. Said the line had opened for us. I stopped her at the yard limit and he took the lamp and walked on.' },
-      { speaker: 'tobin', text: 'I’ve been waiting for that signal to show me what he saw. Never has.' },
+      { speaker: 'tobin', text: 'You read it, then. I saw red that night. I’ll swear it.', mood: 'concerned' },
+      { speaker: 'tobin', text: 'Edric saw cyan. Said the line had opened for us. I stopped her at the yard limit and he took the lamp and walked on.', mood: 'concerned' },
+      { speaker: 'tobin', text: 'I’ve been waiting for that signal to show me what he saw. Never has.', mood: 'concerned' },
     ],
   },
   {
@@ -259,8 +263,8 @@ export const DIALOGUES: DialogueDef[] = [
     speaker: 'mara',
     when: (s) => s.repairs.dryCab,
     lines: [
-      { speaker: 'mara', text: 'A dry cab. I sat up there out of the rain tonight and wrote the log from the footplate.' },
-      { speaker: 'mara', text: 'At 3:17 the hum came through the rail. I felt it in my teeth.' },
+      { speaker: 'mara', text: 'A dry cab. I sat up there out of the rain tonight and wrote the log from the footplate.', mood: 'relieved' },
+      { speaker: 'mara', text: 'At 3:17 the hum came through the rail. I felt it in my teeth.', mood: 'concerned' },
     ],
   },
   {
@@ -269,7 +273,7 @@ export const DIALOGUES: DialogueDef[] = [
     speaker: 'tobin',
     when: (s) => s.repairs.reinforcedStorage,
     lines: [
-      { speaker: 'tobin', text: 'Proper tender, that. Carry coal, tools, people if you had to.' },
+      { speaker: 'tobin', text: 'Proper tender, that. Carry coal, tools, people if you had to.', mood: 'relieved' },
       { speaker: 'tobin', text: 'A town is only the people who stay. Maybe a town can travel.' },
     ],
   },
@@ -281,11 +285,11 @@ export const DIALOGUES: DialogueDef[] = [
     when: (s) => s.repairs.boiler,
     lines: [
       { speaker: 'tobin', text: 'Pressure’s rising. Hear that? She’s breathing.' },
-      { speaker: 'mara', text: 'Tobin. The signal.' },
+      { speaker: 'mara', text: 'Tobin. The signal.', mood: 'concerned' },
       { speaker: 'tobin', text: '…It’s cyan. And it isn’t 3:17.' },
-      { speaker: 'mara', text: 'It’s not waiting for the time anymore. It’s waiting for us.' },
-      { speaker: 'you', text: 'Then No. 9 needs a crew.' },
-      { speaker: 'tobin', text: 'Then she needs a driver. Fetch your coat. — End of Chapter One.' },
+      { speaker: 'mara', text: 'It’s not waiting for the time anymore. It’s waiting for us.', mood: 'relieved' },
+      { speaker: 'you', text: 'Then No. 9 needs a crew.', mood: 'relieved' },
+      { speaker: 'tobin', text: 'Then she needs a driver. Fetch your coat. — End of Chapter One.', mood: 'relieved' },
     ],
   },
 ];
