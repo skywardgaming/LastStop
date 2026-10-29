@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0b14" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="LAST STOP — an idle railway journey." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230e0b14'/%3E%3Crect x='2' y='5' width='5' height='6' fill='%233a2b2d'/%3E%3Crect x='7' y='7' width='7' height='4' fill='%233a2b2d'/%3E%3Crect x='11' y='4' width='2' height='3' fill='%233a2b2d'/%3E%3Crect x='4' y='9' width='2' height='2' fill='%23ffae4a'/%3E%3Crect x='1' y='12' width='14' height='1' fill='%23968a98'/%3E%3C/svg%3E" />
+    <title>LAST STOP</title>
+  </head>
+  <body>
+    <div id="app" class="app">
+      <header class="topbar">
+        <div>
+          <h1 class="title">LAST STOP</h1>
+          <p class="subtitle">Siding 9 &middot; the night shift</p>
+        </div>
+        <span id="save-status" class="save-status" aria-live="polite">&nbsp;</span>
+      </header>
+
+      <section class="scene-frame" aria-label="The derelict platform and locomotive">
+        <canvas id="scene" class="scene" width="192" height="108"></canvas>
+        <p id="scene-caption" class="scene-caption"></p>
+      </section>
+
+      <section class="card skill" aria-labelledby="skill-name">
+        <div class="skill-head">
+          <h2 id="skill-name">Scavenging</h2>
+          <span class="level">Lv <strong id="skill-level">1</strong><span class="level-max"> / 20</span></span>
+        </div>
+        <div class="bar xp-bar" role="progressbar" aria-label="Experience" aria-valuemin="0" aria-valuemax="100" id="xp-bar">
+          <div class="bar-fill" id="xp-fill"></div>
+        </div>
+        <p class="bar-label"><span id="xp-text">0 / 0 XP</span><span id="search-count"></span></p>
+
+        <div class="location">
+          <div>
+            <h3 id="location-name">Derelict Platform</h3>
+            <p id="location-desc" class="muted"></p>
+          </div>
+          <ul id="drop-list" class="drops"></ul>
+        </div>
+
+        <div class="bar action-bar" aria-hidden="true">
+          <div class="bar-fill" id="action-fill"></div>
+        </div>
+        <p class="bar-label"><span id="action-text">Idle</span><span id="action-time"></span></p>
+
+        <button id="toggle" class="btn btn-primary" type="button">Start scavenging</button>
+        <ol id="log" class="log" aria-live="polite"></ol>
+      </section>
+
+      <section class="card" aria-labelledby="inv-title">
+        <h2 id="inv-title">Satchel</h2>
+        <ul id="inventory" class="inventory"></ul>
+      </section>
+
+      <section class="card repair" aria-labelledby="repair-name">
+        <p class="eyebrow">Locomotive No. 9 &middot; repair</p>
+        <h2 id="repair-name"></h2>
+        <p id="repair-desc" class="muted"></p>
+        <ul id="repair-reqs" class="reqs"></ul>
+        <button id="repair-btn" class="btn btn-repair" type="button">Repair</button>
+        <p id="repair-done" class="repair-done" hidden></p>
+      </section>
+
+      <footer class="footer">
+        <span>Prototype 0.1</span>
+        <button id="reset" class="btn-link" type="button">Reset save</button>
+      </footer>
+    </div>
+
+    <dialog id="away" class="away">
+      <h2>While you were away</h2>
+      <p id="away-time" class="muted"></p>
+      <ul id="away-gains" class="away-gains"></ul>
+      <p id="away-cap" class="muted small" hidden></p>
+      <form method="dialog"><button class="btn btn-primary" type="submit">Back to work</button></form>
+    </dialog>
+
+    <div id="blocked" class="blocked" hidden>
+      <p>LAST STOP is already running in another tab. Close it, then reload this one.</p>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
