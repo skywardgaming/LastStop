@@ -55,7 +55,7 @@ describe('locomotive repairs', () => {
 
   it('stacks all bonuses once fully restored', () => {
     const repairs = Object.fromEntries(REPAIR_IDS.map((id) => [id, true])) as Record<(typeof REPAIR_IDS)[number], boolean>;
-    const m = modifiers(fresh({ repairs }));
+    const m = modifiers(fresh({ repairs: { ...fresh().repairs, ...repairs } }));
     expect(m.speed.scavenging).toBeCloseTo(0.2);
     expect(m.speed.engineering).toBeCloseTo(0.3);
     expect(m.rareChance).toBeCloseTo(1.5);
@@ -68,5 +68,38 @@ describe('locomotive repairs', () => {
     if (!r.ok) throw new Error('expected success');
     expect(r.progression.achievements).toContain('firebox');
     expect(r.progression.dialogues).toContain('maraFirebox');
+  });
+});
+
+describe('train improvements', () => {
+  it('need their repair first, and some need research', () => {
+    const rich = atLevel(withItems(fresh(), { brassFitting: 4, polishedLens: 2, fuelBrick: 3 }), 'engineering', 7);
+    expect(repairBlockers(rich, 'cabLanterns')).toEqual(['needsPart']);
+    const withCab = { ...rich, repairs: { ...rich.repairs, dryCab: true } };
+    expect(repairBlockers(withCab, 'cabLanterns')).toEqual([]);
+
+    const receiver = atLevel(withItems(fresh(), REPAIRS.signalReceiver.cost), 'engineering', 14);
+    const boiled = { ...receiver, repairs: { ...receiver.repairs, boiler: true } };
+    expect(repairBlockers(boiled, 'signalReceiver')).toEqual(['needsResearch']);
+  });
+
+  it('Cab Lanterns speed up research; the Tender Winch speeds up salvage', () => {
+    const s = fresh();
+    const m = modifiers({ ...s, repairs: { ...s.repairs, cabLanterns: true, tenderWinch: true } });
+    expect(m.speed.research).toBeCloseTo(0.2);
+    expect(m.speed.salvaging).toBeCloseTo(0.2);
+    expect(m.doubleChance).toBeCloseTo(0.05);
+  });
+
+  it('any order of the five repairs gives the same bonuses (all 32 combinations)', () => {
+    for (let mask = 0; mask < 32; mask++) {
+      const s = fresh();
+      const repairs = { ...s.repairs };
+      REPAIR_IDS.forEach((id, i) => (repairs[id] = Boolean(mask & (1 << i))));
+      const m = modifiers({ ...s, repairs });
+      expect(m.rareChance).toBeCloseTo(repairs.headlamp ? 1.5 : 1);
+      expect(m.xp).toBeCloseTo(repairs.reinforcedStorage ? 1.15 : 1);
+      expect(m.speed.engineering).toBeCloseTo((repairs.dryCab ? 0.2 : 0) + (repairs.boiler ? 0.1 : 0));
+    }
   });
 });
