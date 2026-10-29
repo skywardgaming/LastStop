@@ -1,15 +1,8 @@
-import { RESOURCE_IDS, type ResourceId } from './data';
+import { ITEM_IDS } from './content/items';
+import type { ItemBundle } from './content/world';
+import type { Inventory } from './state';
 
-export type Inventory = Record<ResourceId, number>;
-export type ItemBundle = Partial<Record<ResourceId, number>>;
-
-export function emptyInventory(): Inventory {
-  const inv = {} as Inventory;
-  for (const id of RESOURCE_IDS) inv[id] = 0;
-  return inv;
-}
-
-function assertValidAmount(id: ResourceId, amount: number): void {
+function assertValidAmount(id: string, amount: number): void {
   if (!Number.isInteger(amount) || amount < 0) {
     throw new RangeError(`Invalid amount for ${id}: ${amount}`);
   }
@@ -18,7 +11,7 @@ function assertValidAmount(id: ResourceId, amount: number): void {
 /** Returns a new inventory with the bundle added. Amounts must be non-negative integers. */
 export function addItems(inv: Inventory, bundle: ItemBundle): Inventory {
   const next = { ...inv };
-  for (const id of RESOURCE_IDS) {
+  for (const id of ITEM_IDS) {
     const amount = bundle[id] ?? 0;
     assertValidAmount(id, amount);
     next[id] += amount;
@@ -26,18 +19,29 @@ export function addItems(inv: Inventory, bundle: ItemBundle): Inventory {
   return next;
 }
 
-export function hasItems(inv: Inventory, bundle: ItemBundle): boolean {
-  return RESOURCE_IDS.every((id) => inv[id] >= (bundle[id] ?? 0));
+export function hasItems(inv: Inventory, bundle: ItemBundle, times = 1): boolean {
+  return ITEM_IDS.every((id) => inv[id] >= (bundle[id] ?? 0) * times);
+}
+
+/** How many times the bundle could be paid from this inventory. */
+export function timesAffordable(inv: Inventory, bundle: ItemBundle): number {
+  let n = Infinity;
+  for (const id of ITEM_IDS) {
+    const need = bundle[id] ?? 0;
+    if (need > 0) n = Math.min(n, Math.floor(inv[id] / need));
+  }
+  return n === Infinity ? 0 : n;
 }
 
 /**
- * Atomically removes the bundle. Returns null — and changes nothing — if any
- * resource is short, so the inventory can never go negative.
+ * Atomically removes the bundle (optionally several times). Returns null and
+ * changes nothing if anything is short, so inventory can never go negative.
  */
-export function removeItems(inv: Inventory, bundle: ItemBundle): Inventory | null {
-  for (const id of RESOURCE_IDS) assertValidAmount(id, bundle[id] ?? 0);
-  if (!hasItems(inv, bundle)) return null;
+export function removeItems(inv: Inventory, bundle: ItemBundle, times = 1): Inventory | null {
+  for (const id of ITEM_IDS) assertValidAmount(id, bundle[id] ?? 0);
+  if (!Number.isInteger(times) || times < 0) throw new RangeError(`Invalid times: ${times}`);
+  if (!hasItems(inv, bundle, times)) return null;
   const next = { ...inv };
-  for (const id of RESOURCE_IDS) next[id] -= bundle[id] ?? 0;
+  for (const id of ITEM_IDS) next[id] -= (bundle[id] ?? 0) * times;
   return next;
 }

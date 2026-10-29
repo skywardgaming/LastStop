@@ -1,4 +1,4 @@
-import { MAX_LEVEL } from './data';
+import { MAX_LEVEL } from './content/world';
 
 /**
  * Total XP needed to reach each level. Index = level, so XP_TABLE[1] = 0.
@@ -32,20 +32,15 @@ export function levelForXp(xp: number): number {
 
 export interface LevelProgress {
   level: number;
-  /** XP earned inside the current level. */
   current: number;
-  /** XP span of the current level; 0 at max level. */
   needed: number;
-  /** 0–1, or 1 at max level. */
   fraction: number;
   isMax: boolean;
 }
 
 export function levelProgress(xp: number): LevelProgress {
   const level = levelForXp(xp);
-  if (level >= MAX_LEVEL) {
-    return { level, current: 0, needed: 0, fraction: 1, isMax: true };
-  }
+  if (level >= MAX_LEVEL) return { level, current: 0, needed: 0, fraction: 1, isMax: true };
   const floor = xpForLevel(level);
   const next = xpForLevel(level + 1);
   const current = Math.max(0, xp - floor);
