@@ -1,5 +1,127 @@
 # Changelog
 
+## 0.3.0 — Operation Ascension
+
+Ashvale becomes a four-skill idle RPG with tools, research and a second
+set of goals, and now wears Astra's Operation Rebirth art.
+
+### Art: Operation Rebirth v1.0 (by Astra) — integrated
+
+- All 113 runtime PNGs from the Drive pack, copied to `public/art/rebirth/`
+  and checked byte-for-byte against the pack's `QA.json` (0 mismatches).
+  The README, manifest, QA and the optional skin CSS are kept in
+  `docs/art-rebirth/` for provenance.
+- **Scene:** a new 384×216 renderer built from the five modular layers and
+  props, with No. 9 at (99,95) plus its repair overlays. All 32 repair
+  combinations are cached, and each was checked in the browser: every repair
+  changes only its manifest region. The station sign is blank in the art, so
+  ASHVALE is live text. The cabinet and sign were moved to where they're
+  visible instead of behind the train.
+- **Characters:** the conductor, Mara and Tobin use the posed figures (working
+  poses while busy; NPCs gesture when they have something to say). The nine
+  portraits are used in dialogue, with expressions tagged line by line.
+- **Effects:** rain, steam, lantern glow, window light, headlamp glow, the
+  cyan signal pulse and a one-shot sparkle on rare finds, all from the pack's
+  sprite sheets. Reduced motion hides or freezes them as the manifest says.
+- **Icons:** all 17 item icons, 12 discovery icons (now shown in the journal,
+  never added to inventory), navigation icons and location markers.
+- **UI skin:** nine-slice panel, slot and progress frames applied per
+  component. URLs go through `BASE_URL`, so they work on GitHub Pages.
+- **Loading:** the 0.2 procedural scene shows while the art loads, and stays
+  as a fallback if any file fails. Tappable hotspots on the scene jump to the
+  relevant skill or the Train tab. On desktop the scene shows at an exact 2×.
+
+### Gameplay
+
+- **Salvaging (new skill).** Five targets, from the bottomless Scrap Wagon
+  (level 1) up to the Dead Dynamo (level 12). Machinery comes from
+  Scavenging, and salvage produces Brass Fittings, Ball Bearings, Coil Springs
+  and Field Magnets, which recipes and repairs need. It also has a chance of
+  a double yield.
+- **Railway Research (new skill).** The repeatable Catalogue of the Archive,
+  plus 11 projects. Each project needs a journal discovery and uses
+  Waterlogged Notes (a new scavenging drop) on every action. Finishing one
+  unlocks tool blueprints, permanent bonuses (faster searching, double Fuel
+  Bricks, more XP, rare-find and salvage boosts), the boiler prerequisite,
+  and a new chapter of Mara's story.
+- **Tools and equipment.** One tool slot per skill and 10 tools in three
+  tiers. Higher tiers need a skill level to equip, and some need a research
+  blueprint to craft. A newly crafted tool equips itself if it's an upgrade.
+- **Crafting tiers.** Engineering is split into Parts (tiers 1–3) and Tools.
+- **Train.** Repairs now also need salvaged parts and research. Three new
+  improvements, unlocked after their repairs, each change the scene:
+  - **Cab Lanterns:** Research +20%.
+  - **Tender Winch:** Salvaging +20% and double yields.
+  - **Signal Receiver:** rare finds ×1.25 and XP +10%. Completes Night Works.
+- **Progression.**
+  - **Feats:** 21 in total; most grant a small permanent bonus.
+  - **Objectives:** 20 across *Chapter One · The Cyan Signal* and *Night Works*.
+  - **Unlock lists:** each skill has an expandable list of what it unlocks
+    at each level.
+  - **Journal → Progress:** a skills overview, both chapters' checklists and
+    a records table.
+- **Story.** Six new conversations, including who "E.V." was, and a Night
+  Works finale.
+- **Balance.** The XP curve is unchanged up to level 12 and steeper above
+  it, so level 20 is a long-term goal.
+  - **Chapter One:** the goal-directed test bot finishes in ~4.1 h of
+    efficient play; the first repair comes at ~3.5 min.
+  - **Night Works:** ~5.6 h for the bot.
+  - **Luck:** pity guarantees keep progress-critical discoveries from
+    blocking anyone.
+
+### Engine and saves
+
+- One timestamp engine now runs all four activity types, with the same 8-hour
+  cap and clock high-water protection.
+- **Stopping:** crafting, salvaging and research stop by themselves when
+  materials run out. Research also stops when a project finishes.
+- **Save v3:** v2 → v3 and v1 → v3 migrations, plus sanitizing of tool slots
+  (right skill only), research progress (capped) and projects.
+
+### Interface
+
+- Skills tab: a 2×2 skill grid (level, progress, which one is training), then
+  the skill header with the next unlock, its tool slot, and that skill's
+  actions.
+- New screens: a tool picker, salvage target cards, and research project cards
+  with progress bars.
+- **Train tab:** Repairs and Improvements sections, plus a summary of all
+  bonuses.
+- **Satchel:** Materials / Parts / Machines / Tools filters and a rarity label
+  on each slot.
+- **Item sheets:** what uses each item; tool sheets have an Equip button.
+- **Discovery sheets:** link to the matching research project.
+
+### Tests
+
+99 tests across 12 files (up from 62), covering:
+- Salvaging, research, tools and equipment (including equip-spam and
+  duplication checks).
+- Improvements; all 32 repair combinations produce the right bonuses.
+- v2 → v3 and v1 → v3 migration, and sanitizing.
+- Offline progress for every activity type; activity switching across all four.
+- Content integrity: no dead ends, every research gate and blueprint resolves.
+- The goal-directed full-game bot across several random seeds.
+
+### Known issues
+
+- The 19 new items (notes, machinery, salvaged parts and the 10 tools) use
+  code-drawn 16×16 placeholder icons. They need matching 32×32 art from Astra.
+- Astra's README notes that the generated masters were normalized to a
+  52-color palette; a human pixel-cleanup pass is optional.
+- Several conversations can unlock at once after a long absence.
+- The art pack has no fog animation (the README says so). The procedural fog
+  from 0.2 is used only in the fallback scene.
+
+### Next priorities
+
+1. Icons from Astra for the 19 Ascension items.
+2. Chapter Two: No. 9 leaves Ashvale — a second station and a travel loop.
+3. Cooking and Expeditions skills, now that the four-skill core is stable.
+4. Mastery per location/recipe/target for long-term goals.
+5. Settings: sound with mute, save export/import, text size.
+
 ## 0.2.0 — Ashvale Station ("Operation Night Shift")
 
 The prototype becomes a full first chapter: two connected skills, three

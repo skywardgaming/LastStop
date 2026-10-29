@@ -4,6 +4,7 @@
 import type { ItemId } from '../core/content/items';
 import type { SpeakerId } from '../core/content/story';
 import { artUrl, DISCOVERY_ART, ITEM_ART, NAV_ART, portraitArt, type ArtSpeaker, type Mood } from './art';
+import { EXTRA_SPRITES } from './sprites-extra';
 
 export type Palette = Record<string, string>;
 export interface Sprite {
@@ -345,7 +346,7 @@ export const ITEM_SPRITES: Partial<Record<ItemId, Sprite>> & Record<string, Spri
 export function itemIconUrl(id: ItemId): string {
   const art = ITEM_ART[id];
   if (art) return artUrl(art);
-  const sprite = ITEM_SPRITES[id];
+  const sprite = EXTRA_SPRITES[id] ?? ITEM_SPRITES[id];
   return sprite ? spriteUrl(`item:${id}`, sprite) : '';
 }
 

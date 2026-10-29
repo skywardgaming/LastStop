@@ -2,15 +2,17 @@ import { MAX_LEVEL } from './content/world';
 
 /**
  * Total XP needed to reach each level. Index = level, so XP_TABLE[1] = 0.
- * Curve: 60 * (level - 1)^2.2, rounded — level 5 in ~6 minutes of searching,
- * level 20 in roughly 3 hours at the base rate.
+ * Curve: 60 * (level - 1)^2.2, steepening past level 12 so the last levels
+ * are long-term goals. Level 5 takes ~6 minutes of searching; level 12 a
+ * couple of hours; level 20 many hours per skill.
  */
 export const XP_TABLE: readonly number[] = buildTable();
 
 function buildTable(): number[] {
   const table = [0, 0];
   for (let level = 2; level <= MAX_LEVEL; level++) {
-    table.push(Math.round(60 * Math.pow(level - 1, 2.2)));
+    const late = 1 + 0.15 * Math.pow(Math.max(0, level - 12), 1.5);
+    table.push(Math.round(60 * Math.pow(level - 1, 2.2) * late));
   }
   return table;
 }
