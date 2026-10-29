@@ -1,0 +1,1406 @@
+{
+  "version": "1.0.0",
+  "sourceCommit": "def8e066477acebd1369f6b868dc616aaafe6013",
+  "logicalScene": [
+    384,
+    216
+  ],
+  "palette": [
+    "#10121d",
+    "#151625",
+    "#202039",
+    "#292640",
+    "#37314c",
+    "#4b405c",
+    "#645064",
+    "#827088",
+    "#a18d9f",
+    "#313645",
+    "#50596a",
+    "#6c7787",
+    "#8c96a3",
+    "#b6bdc6",
+    "#ded9cf",
+    "#fff0cc",
+    "#35282c",
+    "#503039",
+    "#704044",
+    "#894b43",
+    "#ad6250",
+    "#ce8661",
+    "#eeb17c",
+    "#ffd49a",
+    "#2b302c",
+    "#414a3c",
+    "#536049",
+    "#657155",
+    "#81906a",
+    "#a4ab7e",
+    "#423c2b",
+    "#655332",
+    "#8c713e",
+    "#ad8647",
+    "#c99b54",
+    "#e5bb72",
+    "#ffcf7a",
+    "#ded0ac",
+    "#b6a383",
+    "#8b765e",
+    "#442c24",
+    "#654434",
+    "#8a6046",
+    "#b58a62",
+    "#dbb18b",
+    "#efc9a4",
+    "#174149",
+    "#23636c",
+    "#3c929a",
+    "#6bddda",
+    "#a4eee4",
+    "#e2fbef"
+  ],
+  "assets": [
+    {
+      "id": "items.scrapIron",
+      "path": "assets/items/scrapIron.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.coalLump",
+      "path": "assets/items/coalLump.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.glassShard",
+      "path": "assets/items/glassShard.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.copperWire",
+      "path": "assets/items/copperWire.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.brassCog",
+      "path": "assets/items/brassCog.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.signalRelay",
+      "path": "assets/items/signalRelay.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.cyanPrism",
+      "path": "assets/items/cyanPrism.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.oakTimber",
+      "path": "assets/items/oakTimber.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.steelRivets",
+      "path": "assets/items/steelRivets.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.pressureGauge",
+      "path": "assets/items/pressureGauge.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.ironPlate",
+      "path": "assets/items/ironPlate.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.fuelBrick",
+      "path": "assets/items/fuelBrick.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.polishedLens",
+      "path": "assets/items/polishedLens.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.copperCoil",
+      "path": "assets/items/copperCoil.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.timberBeam",
+      "path": "assets/items/timberBeam.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.patchPanel",
+      "path": "assets/items/patchPanel.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.gaugeAssembly",
+      "path": "assets/items/gaugeAssembly.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.tornTimetable",
+      "path": "assets/items/tornTimetable.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.kilnToken",
+      "path": "assets/items/kilnToken.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.knittedMitten",
+      "path": "assets/items/knittedMitten.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.stoppedWatch",
+      "path": "assets/items/stoppedWatch.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.signalLog",
+      "path": "assets/items/signalLog.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.shedKey",
+      "path": "assets/items/shedKey.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.hummingRelay",
+      "path": "assets/items/hummingRelay.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.stationPhoto",
+      "path": "assets/items/stationPhoto.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.firemansLedger",
+      "path": "assets/items/firemansLedger.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.kilnPlans",
+      "path": "assets/items/kilnPlans.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.coldValve",
+      "path": "assets/items/coldValve.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.cyanDisc",
+      "path": "assets/items/cyanDisc.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "items.satchel",
+      "path": "assets/items/satchel.png",
+      "width": 32,
+      "height": 32,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.conductor_neutral",
+      "path": "assets/characters/conductor_neutral.png",
+      "width": 96,
+      "height": 96,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.conductor_concerned",
+      "path": "assets/characters/conductor_concerned.png",
+      "width": 96,
+      "height": 96,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.conductor_relieved",
+      "path": "assets/characters/conductor_relieved.png",
+      "width": 96,
+      "height": 96,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.mara_neutral",
+      "path": "assets/characters/mara_neutral.png",
+      "width": 96,
+      "height": 96,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.mara_concerned",
+      "path": "assets/characters/mara_concerned.png",
+      "width": 96,
+      "height": 96,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.mara_relieved",
+      "path": "assets/characters/mara_relieved.png",
+      "width": 96,
+      "height": 96,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.tobin_neutral",
+      "path": "assets/characters/tobin_neutral.png",
+      "width": 96,
+      "height": 96,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.tobin_concerned",
+      "path": "assets/characters/tobin_concerned.png",
+      "width": 96,
+      "height": 96,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.tobin_relieved",
+      "path": "assets/characters/tobin_relieved.png",
+      "width": 96,
+      "height": 96,
+      "kind": "sprite"
+    },
+    {
+      "id": "characters.conductor_figure_0",
+      "path": "assets/characters/conductor_figure_0.png",
+      "width": 32,
+      "height": 48,
+      "anchor": [
+        16,
+        46
+      ],
+      "pose": "neutral"
+    },
+    {
+      "id": "characters.conductor_figure_1",
+      "path": "assets/characters/conductor_figure_1.png",
+      "width": 32,
+      "height": 48,
+      "anchor": [
+        16,
+        46
+      ],
+      "pose": "scavenge"
+    },
+    {
+      "id": "characters.conductor_figure_2",
+      "path": "assets/characters/conductor_figure_2.png",
+      "width": 32,
+      "height": 48,
+      "anchor": [
+        16,
+        46
+      ],
+      "pose": "relieved"
+    },
+    {
+      "id": "characters.conductor_poses",
+      "path": "assets/characters/conductor_poses.png",
+      "width": 96,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "frames": 3,
+      "animation": false,
+      "usage": "State-selected poses, not a walk animation"
+    },
+    {
+      "id": "characters.mara_figure_0",
+      "path": "assets/characters/mara_figure_0.png",
+      "width": 32,
+      "height": 48,
+      "anchor": [
+        16,
+        46
+      ],
+      "pose": "neutral"
+    },
+    {
+      "id": "characters.mara_figure_1",
+      "path": "assets/characters/mara_figure_1.png",
+      "width": 32,
+      "height": 48,
+      "anchor": [
+        16,
+        46
+      ],
+      "pose": "concerned"
+    },
+    {
+      "id": "characters.mara_figure_2",
+      "path": "assets/characters/mara_figure_2.png",
+      "width": 32,
+      "height": 48,
+      "anchor": [
+        16,
+        46
+      ],
+      "pose": "relieved"
+    },
+    {
+      "id": "characters.mara_poses",
+      "path": "assets/characters/mara_poses.png",
+      "width": 96,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "frames": 3,
+      "animation": false,
+      "usage": "State-selected poses, not a walk animation"
+    },
+    {
+      "id": "characters.tobin_figure_0",
+      "path": "assets/characters/tobin_figure_0.png",
+      "width": 32,
+      "height": 48,
+      "anchor": [
+        16,
+        46
+      ],
+      "pose": "neutral"
+    },
+    {
+      "id": "characters.tobin_figure_1",
+      "path": "assets/characters/tobin_figure_1.png",
+      "width": 32,
+      "height": 48,
+      "anchor": [
+        16,
+        46
+      ],
+      "pose": "concerned"
+    },
+    {
+      "id": "characters.tobin_figure_2",
+      "path": "assets/characters/tobin_figure_2.png",
+      "width": 32,
+      "height": 48,
+      "anchor": [
+        16,
+        46
+      ],
+      "pose": "relieved"
+    },
+    {
+      "id": "characters.tobin_poses",
+      "path": "assets/characters/tobin_poses.png",
+      "width": 96,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "frames": 3,
+      "animation": false,
+      "usage": "State-selected poses, not a walk animation"
+    },
+    {
+      "id": "environments.stationSign",
+      "path": "assets/environments/stationSign.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.lantern",
+      "path": "assets/environments/lantern.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.cyanSignal",
+      "path": "assets/environments/cyanSignal.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.luggage",
+      "path": "assets/environments/luggage.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.cabinet_closed",
+      "path": "assets/environments/cabinet_closed.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.cabinet_open",
+      "path": "assets/environments/cabinet_open.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.shed_closed",
+      "path": "assets/environments/shed_closed.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.shed_open",
+      "path": "assets/environments/shed_open.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.ashPlanter",
+      "path": "assets/environments/ashPlanter.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.bench",
+      "path": "assets/environments/bench.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.toolBag",
+      "path": "assets/environments/toolBag.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "environments.fence",
+      "path": "assets/environments/fence.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite"
+    },
+    {
+      "id": "ui.panel_iron",
+      "path": "assets/ui/panel_iron.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite",
+      "nineSlice": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+      }
+    },
+    {
+      "id": "ui.panel_selected",
+      "path": "assets/ui/panel_selected.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite",
+      "nineSlice": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+      }
+    },
+    {
+      "id": "ui.panel_disabled",
+      "path": "assets/ui/panel_disabled.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite",
+      "nineSlice": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+      }
+    },
+    {
+      "id": "ui.panel_wood",
+      "path": "assets/ui/panel_wood.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite",
+      "nineSlice": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+      }
+    },
+    {
+      "id": "ui.panel_ceramic",
+      "path": "assets/ui/panel_ceramic.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite",
+      "nineSlice": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+      }
+    },
+    {
+      "id": "ui.panel_engineering",
+      "path": "assets/ui/panel_engineering.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite",
+      "nineSlice": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+      }
+    },
+    {
+      "id": "ui.slot_common",
+      "path": "assets/ui/slot_common.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite",
+      "nineSlice": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+      }
+    },
+    {
+      "id": "ui.slot_uncommon",
+      "path": "assets/ui/slot_uncommon.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite",
+      "nineSlice": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+      }
+    },
+    {
+      "id": "ui.slot_rare",
+      "path": "assets/ui/slot_rare.png",
+      "width": 48,
+      "height": 48,
+      "kind": "sprite",
+      "nineSlice": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+      }
+    },
+    {
+      "id": "environments.ashvale_static_alternative",
+      "path": "assets/environments/ashvale_static_alternative.png",
+      "width": 384,
+      "height": 216,
+      "kind": "opaque-background",
+      "note": "Optional flattened architecture alternative; contains no train or characters. Do not combine with modular architecture."
+    },
+    {
+      "id": "environments.sky",
+      "path": "assets/environments/sky.png",
+      "width": 384,
+      "height": 216,
+      "kind": "opaque-background"
+    },
+    {
+      "id": "environments.skyline_piece",
+      "path": "assets/environments/skyline_piece.png",
+      "width": 384,
+      "height": 70
+    },
+    {
+      "id": "environments.skyline",
+      "path": "assets/environments/skyline.png",
+      "width": 384,
+      "height": 216,
+      "kind": "scene-layer",
+      "anchor": [
+        0,
+        0
+      ],
+      "renderOrder": 10
+    },
+    {
+      "id": "environments.station_piece",
+      "path": "assets/environments/station_piece.png",
+      "width": 300,
+      "height": 100
+    },
+    {
+      "id": "environments.station_buildings",
+      "path": "assets/environments/station_buildings.png",
+      "width": 384,
+      "height": 216,
+      "kind": "scene-layer",
+      "anchor": [
+        0,
+        0
+      ],
+      "renderOrder": 20
+    },
+    {
+      "id": "environments.canopy_piece",
+      "path": "assets/environments/canopy_piece.png",
+      "width": 222,
+      "height": 49
+    },
+    {
+      "id": "environments.platform_architecture",
+      "path": "assets/environments/platform_architecture.png",
+      "width": 384,
+      "height": 216,
+      "kind": "scene-layer",
+      "anchor": [
+        0,
+        0
+      ],
+      "renderOrder": 30
+    },
+    {
+      "id": "environments.tracks_ground",
+      "path": "assets/environments/tracks_ground.png",
+      "width": 384,
+      "height": 216,
+      "kind": "scene-layer",
+      "anchor": [
+        0,
+        0
+      ],
+      "renderOrder": 40
+    },
+    {
+      "id": "locomotive.repair_fireboxDoor",
+      "path": "assets/locomotive/repair_fireboxDoor.png",
+      "width": 256,
+      "height": 102,
+      "kind": "repair-overlay",
+      "anchor": [
+        0,
+        0
+      ],
+      "repairId": "fireboxDoor"
+    },
+    {
+      "id": "locomotive.repair_headlamp",
+      "path": "assets/locomotive/repair_headlamp.png",
+      "width": 256,
+      "height": 102,
+      "kind": "repair-overlay",
+      "anchor": [
+        0,
+        0
+      ],
+      "repairId": "headlamp"
+    },
+    {
+      "id": "locomotive.repair_dryCab",
+      "path": "assets/locomotive/repair_dryCab.png",
+      "width": 256,
+      "height": 102,
+      "kind": "repair-overlay",
+      "anchor": [
+        0,
+        0
+      ],
+      "repairId": "dryCab"
+    },
+    {
+      "id": "locomotive.repair_reinforcedStorage",
+      "path": "assets/locomotive/repair_reinforcedStorage.png",
+      "width": 256,
+      "height": 102,
+      "kind": "repair-overlay",
+      "anchor": [
+        0,
+        0
+      ],
+      "repairId": "reinforcedStorage"
+    },
+    {
+      "id": "locomotive.repair_boiler",
+      "path": "assets/locomotive/repair_boiler.png",
+      "width": 256,
+      "height": 102,
+      "kind": "repair-overlay",
+      "anchor": [
+        0,
+        0
+      ],
+      "repairId": "boiler"
+    },
+    {
+      "id": "locomotive.no9_base_damaged",
+      "path": "assets/locomotive/no9_base_damaged.png",
+      "width": 256,
+      "height": 102,
+      "anchor": [
+        0,
+        0
+      ],
+      "scenePosition": [
+        99,
+        95
+      ],
+      "kind": "train-base"
+    },
+    {
+      "id": "locomotive.no9_all_repaired",
+      "path": "assets/locomotive/no9_all_repaired.png",
+      "width": 256,
+      "height": 102,
+      "anchor": [
+        0,
+        0
+      ],
+      "kind": "reference-state"
+    },
+    {
+      "id": "locomotive.no9_stage_0",
+      "path": "assets/locomotive/no9_stage_0.png",
+      "width": 256,
+      "height": 102,
+      "kind": "reference-state",
+      "note": "Convenience sequential preview; game repairs may occur in arbitrary order. Use overlays."
+    },
+    {
+      "id": "locomotive.no9_stage_1",
+      "path": "assets/locomotive/no9_stage_1.png",
+      "width": 256,
+      "height": 102,
+      "kind": "reference-state",
+      "note": "Convenience sequential preview; game repairs may occur in arbitrary order. Use overlays."
+    },
+    {
+      "id": "locomotive.no9_stage_2",
+      "path": "assets/locomotive/no9_stage_2.png",
+      "width": 256,
+      "height": 102,
+      "kind": "reference-state",
+      "note": "Convenience sequential preview; game repairs may occur in arbitrary order. Use overlays."
+    },
+    {
+      "id": "locomotive.no9_stage_3",
+      "path": "assets/locomotive/no9_stage_3.png",
+      "width": 256,
+      "height": 102,
+      "kind": "reference-state",
+      "note": "Convenience sequential preview; game repairs may occur in arbitrary order. Use overlays."
+    },
+    {
+      "id": "locomotive.no9_stage_4",
+      "path": "assets/locomotive/no9_stage_4.png",
+      "width": 256,
+      "height": 102,
+      "kind": "reference-state",
+      "note": "Convenience sequential preview; game repairs may occur in arbitrary order. Use overlays."
+    },
+    {
+      "id": "locomotive.no9_stage_5",
+      "path": "assets/locomotive/no9_stage_5.png",
+      "width": 256,
+      "height": 102,
+      "kind": "reference-state",
+      "note": "Convenience sequential preview; game repairs may occur in arbitrary order. Use overlays."
+    },
+    {
+      "id": "ui.station",
+      "path": "assets/ui/station.png",
+      "width": 24,
+      "height": 24,
+      "kind": "nav-icon"
+    },
+    {
+      "id": "ui.skills",
+      "path": "assets/ui/skills.png",
+      "width": 24,
+      "height": 24,
+      "kind": "nav-icon"
+    },
+    {
+      "id": "ui.train",
+      "path": "assets/ui/train.png",
+      "width": 24,
+      "height": 24,
+      "kind": "nav-icon"
+    },
+    {
+      "id": "ui.satchel",
+      "path": "assets/ui/satchel.png",
+      "width": 24,
+      "height": 24,
+      "kind": "nav-icon"
+    },
+    {
+      "id": "ui.journal",
+      "path": "assets/ui/journal.png",
+      "width": 24,
+      "height": 24,
+      "kind": "nav-icon"
+    },
+    {
+      "id": "ui.settings",
+      "path": "assets/ui/settings.png",
+      "width": 24,
+      "height": 24,
+      "kind": "nav-icon"
+    },
+    {
+      "id": "ui.marker_derelictPlatform",
+      "path": "assets/ui/marker_derelictPlatform.png",
+      "width": 24,
+      "height": 24,
+      "kind": "location-marker"
+    },
+    {
+      "id": "ui.marker_signalCabinet",
+      "path": "assets/ui/marker_signalCabinet.png",
+      "width": 24,
+      "height": 24,
+      "kind": "location-marker"
+    },
+    {
+      "id": "ui.marker_maintenanceShed",
+      "path": "assets/ui/marker_maintenanceShed.png",
+      "width": 24,
+      "height": 24,
+      "kind": "location-marker"
+    },
+    {
+      "id": "ui.progress_amber",
+      "path": "assets/ui/progress_amber.png",
+      "width": 32,
+      "height": 8,
+      "nineSlice": {
+        "top": 2,
+        "right": 2,
+        "bottom": 2,
+        "left": 2
+      }
+    },
+    {
+      "id": "ui.progress_cyan",
+      "path": "assets/ui/progress_cyan.png",
+      "width": 32,
+      "height": 8,
+      "nineSlice": {
+        "top": 2,
+        "right": 2,
+        "bottom": 2,
+        "left": 2
+      }
+    },
+    {
+      "id": "ui.progress_copper",
+      "path": "assets/ui/progress_copper.png",
+      "width": 32,
+      "height": 8,
+      "nineSlice": {
+        "top": 2,
+        "right": 2,
+        "bottom": 2,
+        "left": 2
+      }
+    },
+    {
+      "id": "effects.steam",
+      "path": "assets/effects/steam.png",
+      "width": 192,
+      "height": 32,
+      "kind": "effect-sheet",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "frames": 6,
+      "frameDurationMs": 160,
+      "loop": true,
+      "reducedMotion": "hide"
+    },
+    {
+      "id": "effects.rain",
+      "path": "assets/effects/rain.png",
+      "width": 128,
+      "height": 32,
+      "kind": "effect-sheet",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "frames": 4,
+      "frameDurationMs": 140,
+      "loop": true,
+      "reducedMotion": "hide"
+    },
+    {
+      "id": "effects.lantern_glow",
+      "path": "assets/effects/lantern_glow.png",
+      "width": 128,
+      "height": 32,
+      "kind": "effect-sheet",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "frames": 4,
+      "frameDurationMs": 240,
+      "loop": true,
+      "reducedMotion": "freeze-frame-0"
+    },
+    {
+      "id": "effects.signal_pulse",
+      "path": "assets/effects/signal_pulse.png",
+      "width": 128,
+      "height": 32,
+      "kind": "effect-sheet",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "frames": 4,
+      "frameDurationMs": 240,
+      "loop": true,
+      "reducedMotion": "freeze-frame-0"
+    },
+    {
+      "id": "effects.window_light",
+      "path": "assets/effects/window_light.png",
+      "width": 64,
+      "height": 16,
+      "kind": "effect-sheet",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "frames": 4,
+      "frameDurationMs": 300,
+      "loop": true,
+      "reducedMotion": "freeze-frame-0"
+    },
+    {
+      "id": "effects.rare_discovery",
+      "path": "assets/effects/rare_discovery.png",
+      "width": 192,
+      "height": 32,
+      "kind": "effect-sheet",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "frames": 6,
+      "frameDurationMs": 100,
+      "loop": false,
+      "reducedMotion": "hide"
+    },
+    {
+      "id": "effects.headlamp_glow",
+      "path": "assets/effects/headlamp_glow.png",
+      "width": 192,
+      "height": 48,
+      "kind": "effect-sheet",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 4,
+      "frameDurationMs": 250,
+      "loop": true,
+      "reducedMotion": "freeze-frame-0"
+    },
+    {
+      "id": "previews.figures",
+      "path": "assets/previews/figures.png",
+      "width": 420,
+      "height": 504,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.items",
+      "path": "assets/previews/items.png",
+      "width": 672,
+      "height": 520,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.mobile_layout_reference",
+      "path": "assets/previews/mobile_layout_reference.png",
+      "width": 390,
+      "height": 844,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.portraits",
+      "path": "assets/previews/portraits.png",
+      "width": 612,
+      "height": 654,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.props",
+      "path": "assets/previews/props.png",
+      "width": 624,
+      "height": 516,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.scene_damaged",
+      "path": "assets/previews/scene_damaged.png",
+      "width": 384,
+      "height": 216,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.scene_damaged_3x",
+      "path": "assets/previews/scene_damaged_3x.png",
+      "width": 1152,
+      "height": 648,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.scene_repaired",
+      "path": "assets/previews/scene_repaired.png",
+      "width": 384,
+      "height": 216,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.scene_repaired_3x",
+      "path": "assets/previews/scene_repaired_3x.png",
+      "width": 1152,
+      "height": 648,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.train_stages",
+      "path": "assets/previews/train_stages.png",
+      "width": 768,
+      "height": 1956,
+      "kind": "inspection-preview",
+      "runtime": false
+    },
+    {
+      "id": "previews.ui",
+      "path": "assets/previews/ui.png",
+      "width": 600,
+      "height": 680,
+      "kind": "inspection-preview",
+      "runtime": false
+    }
+  ],
+  "itemMap": {
+    "scrapIron": "assets/items/scrapIron.png",
+    "coalLump": "assets/items/coalLump.png",
+    "glassShard": "assets/items/glassShard.png",
+    "copperWire": "assets/items/copperWire.png",
+    "brassCog": "assets/items/brassCog.png",
+    "signalRelay": "assets/items/signalRelay.png",
+    "cyanPrism": "assets/items/cyanPrism.png",
+    "oakTimber": "assets/items/oakTimber.png",
+    "steelRivets": "assets/items/steelRivets.png",
+    "pressureGauge": "assets/items/pressureGauge.png",
+    "ironPlate": "assets/items/ironPlate.png",
+    "fuelBrick": "assets/items/fuelBrick.png",
+    "polishedLens": "assets/items/polishedLens.png",
+    "copperCoil": "assets/items/copperCoil.png",
+    "timberBeam": "assets/items/timberBeam.png",
+    "patchPanel": "assets/items/patchPanel.png",
+    "gaugeAssembly": "assets/items/gaugeAssembly.png"
+  },
+  "discoveryMap": {
+    "tornTimetable": "assets/items/tornTimetable.png",
+    "kilnToken": "assets/items/kilnToken.png",
+    "knittedMitten": "assets/items/knittedMitten.png",
+    "stoppedWatch": "assets/items/stoppedWatch.png",
+    "signalLog": "assets/items/signalLog.png",
+    "shedKey": "assets/items/shedKey.png",
+    "hummingRelay": "assets/items/hummingRelay.png",
+    "stationPhoto": "assets/items/stationPhoto.png",
+    "firemansLedger": "assets/items/firemansLedger.png",
+    "kilnPlans": "assets/items/kilnPlans.png",
+    "coldValve": "assets/items/coldValve.png",
+    "cyanDisc": "assets/items/cyanDisc.png"
+  },
+  "characterMap": {
+    "conductor": {
+      "portraits": [
+        "assets/characters/conductor_neutral.png",
+        "assets/characters/conductor_concerned.png",
+        "assets/characters/conductor_relieved.png"
+      ],
+      "poses": "assets/characters/conductor_poses.png"
+    },
+    "mara": {
+      "portraits": [
+        "assets/characters/mara_neutral.png",
+        "assets/characters/mara_concerned.png",
+        "assets/characters/mara_relieved.png"
+      ],
+      "poses": "assets/characters/mara_poses.png"
+    },
+    "tobin": {
+      "portraits": [
+        "assets/characters/tobin_neutral.png",
+        "assets/characters/tobin_concerned.png",
+        "assets/characters/tobin_relieved.png"
+      ],
+      "poses": "assets/characters/tobin_poses.png"
+    }
+  },
+  "repairs": {
+    "fireboxDoor": {
+      "overlay": "assets/locomotive/repair_fireboxDoor.png",
+      "anchor": [
+        0,
+        0
+      ],
+      "regions": [
+        [
+          93,
+          52,
+          16,
+          20
+        ]
+      ],
+      "composite": "source-over"
+    },
+    "headlamp": {
+      "overlay": "assets/locomotive/repair_headlamp.png",
+      "anchor": [
+        0,
+        0
+      ],
+      "regions": [
+        [
+          226,
+          20,
+          16,
+          17
+        ]
+      ],
+      "composite": "source-over"
+    },
+    "dryCab": {
+      "overlay": "assets/locomotive/repair_dryCab.png",
+      "anchor": [
+        0,
+        0
+      ],
+      "regions": [
+        [
+          77,
+          18,
+          40,
+          27
+        ]
+      ],
+      "composite": "source-over"
+    },
+    "reinforcedStorage": {
+      "overlay": "assets/locomotive/repair_reinforcedStorage.png",
+      "anchor": [
+        0,
+        0
+      ],
+      "regions": [
+        [
+          10,
+          47,
+          66,
+          18
+        ]
+      ],
+      "composite": "source-over"
+    },
+    "boiler": {
+      "overlay": "assets/locomotive/repair_boiler.png",
+      "anchor": [
+        0,
+        0
+      ],
+      "regions": [
+        [
+          117,
+          25,
+          84,
+          32
+        ],
+        [
+          132,
+          24,
+          10,
+          9
+        ]
+      ],
+      "composite": "source-over"
+    }
+  },
+  "sceneLayers": [
+    {
+      "path": "assets/environments/sky.png",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "path": "assets/environments/skyline.png",
+      "x": 0,
+      "y": 0,
+      "z": 10
+    },
+    {
+      "path": "assets/environments/station_buildings.png",
+      "x": 0,
+      "y": 0,
+      "z": 20
+    },
+    {
+      "path": "assets/environments/platform_architecture.png",
+      "x": 0,
+      "y": 0,
+      "z": 30
+    },
+    {
+      "path": "assets/environments/tracks_ground.png",
+      "x": 0,
+      "y": 0,
+      "z": 40
+    }
+  ],
+  "sceneComposition": {
+    "train": {
+      "base": "assets/locomotive/no9_base_damaged.png",
+      "x": 99,
+      "y": 95
+    },
+    "props": [
+      {
+        "path": "assets/environments/shed_closed.png",
+        "x": 0,
+        "y": 108
+      },
+      {
+        "path": "assets/environments/cyanSignal.png",
+        "x": 334,
+        "y": 100
+      },
+      {
+        "path": "assets/environments/bench.png",
+        "x": 73,
+        "y": 113
+      },
+      {
+        "path": "assets/environments/luggage.png",
+        "x": 127,
+        "y": 116
+      },
+      {
+        "path": "assets/environments/ashPlanter.png",
+        "x": 41,
+        "y": 113
+      },
+      {
+        "path": "assets/environments/stationSign.png",
+        "x": 199,
+        "y": 102
+      },
+      {
+        "path": "assets/environments/cabinet_closed.png",
+        "x": 310,
+        "y": 112
+      }
+    ],
+    "figures": [
+      {
+        "path": "assets/characters/mara_figure_0.png",
+        "x": 63,
+        "y": 110
+      },
+      {
+        "path": "assets/characters/conductor_figure_0.png",
+        "x": 85,
+        "y": 112
+      }
+    ]
+  },
+  "limitations": [
+    "Asset-only delivery; gameplay integration not performed",
+    "Generated high-resolution masters normalized to exact logical grids",
+    "Three state poses per character, not walk cycles",
+    "Runtime iPhone Safari validation remains required",
+    "Static mobile layout reference is not a browser screenshot",
+    "Fog animation and additional stations are not included"
+  ]
+}
