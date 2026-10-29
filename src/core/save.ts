@@ -3,7 +3,21 @@
 
 import { ITEM_IDS, type ItemId } from './content/items';
 import { DISCOVERY_BY_ID, DIALOGUE_BY_ID, ACHIEVEMENTS } from './content/story';
-import { LOCATION_IDS, RECIPE_IDS, REPAIR_IDS, SKILL_IDS, type LocationId, type RecipeId } from './content/world';
+import {
+  LOCATION_IDS,
+  PROJECT_IDS,
+  PROJECTS,
+  RECIPE_IDS,
+  SALVAGE_IDS,
+  SKILL_IDS,
+  TOOLS,
+  TRAIN_PART_IDS,
+  type LocationId,
+  type ProjectId,
+  type RecipeId,
+  type SalvageId,
+  type ToolId,
+} from './content/world';
 import { createInitialState, SAVE_VERSION, type GameState } from './state';
 
 export interface SaveEnvelope {
@@ -51,6 +65,7 @@ export function deserialize(raw: string | null, now: number, seed: number): Load
 export function migrate(envelope: Obj): Obj | null {
   let e: Obj = envelope;
   if (e.version === 1) e = migrateV1toV2(e);
+  if (e.version === 2) e = migrateV2toV3(e);
   return e.version === SAVE_VERSION ? e : null;
 }
 
@@ -89,6 +104,16 @@ function migrateV1toV2(e: Obj): Obj {
   };
 }
 
+/**
+ * v2 (Ashvale 0.2) → v3 (Ascension): two new skills, tool slots, research
+ * and train improvements. Everything new starts empty; sanitising fills
+ * the defaults, so the migration only has to bump the version.
+ */
+function migrateV2toV3(e: Obj): Obj {
+  const s = isObject(e.state) ? e.state : {};
+  return { ...e, version: 3, state: { ...s, version: 3 } };
+}
+
 // ---------- sanitising ----------
 
 function sanitize(s: Obj, now: number, seed: number): GameState {
@@ -104,7 +129,25 @@ function sanitize(s: Obj, now: number, seed: number): GameState {
   for (const id of ITEM_IDS) base.inventory[id] = count(inv[id]);
 
   const repairs = isObject(s.repairs) ? s.repairs : {};
-  for (const id of REPAIR_IDS) base.repairs[id] = repairs[id] === true;
+  for (const id of TRAIN_PART_IDS) base.repairs[id] = repairs[id] === true;
+
+  // Tool slots: only a known tool for the matching skill.
+  const equipment = isObject(s.equipment) ? s.equipment : {};
+  for (const skill of SKILL_IDS) {
+    const t = equipment[skill];
+    if (typeof t === 'string' && t in TOOLS && TOOLS[t as ToolId].skill === skill) base.equipment[skill] = t as ToolId;
+  }
+
+  // Research: progress below each project's total; known finished projects.
+  const research = isObject(s.research) ? s.research : {};
+  const doneRaw = Array.isArray(research.done) ? research.done : [];
+  base.research.done = [...new Set(doneRaw.filter((x): x is ProjectId => typeof x === 'string' && (PROJECT_IDS as readonly string[]).includes(x) && PROJECTS[x as ProjectId].actions !== undefined))];
+  const progress = isObject(research.progress) ? research.progress : {};
+  for (const id of PROJECT_IDS) {
+    const total = PROJECTS[id].actions;
+    const n = count(progress[id]);
+    if (total !== undefined && n > 0 && !base.research.done.includes(id)) base.research.progress[id] = Math.min(n, total - 1);
+  }
 
   const disc = isObject(s.discoveries) ? s.discoveries : {};
   for (const [id, at] of Object.entries(disc)) if (id in DISCOVERY_BY_ID) base.discoveries[id] = count(at);
@@ -130,6 +173,8 @@ function sanitize(s: Obj, now: number, seed: number): GameState {
     if (n > 0) base.stats.searches[id] = n;
   }
   base.stats.crafts = count(stats.crafts);
+  base.stats.salvages = count(stats.salvages);
+  base.stats.studies = count(stats.studies);
   base.stats.rareFinds = count(stats.rareFinds);
   base.stats.longestAwayMs = count(stats.longestAwayMs);
   const obtained = isObject(stats.obtained) ? stats.obtained : {};
@@ -150,6 +195,15 @@ function sanitize(s: Obj, now: number, seed: number): GameState {
       base.activity = { kind: 'scavenge', locationId: act.locationId as LocationId, lastProcessedAt: at };
     } else if (act.kind === 'craft' && typeof act.recipeId === 'string' && (RECIPE_IDS as readonly string[]).includes(act.recipeId)) {
       base.activity = { kind: 'craft', recipeId: act.recipeId as RecipeId, lastProcessedAt: at };
+    } else if (act.kind === 'salvage' && typeof act.targetId === 'string' && (SALVAGE_IDS as readonly string[]).includes(act.targetId)) {
+      base.activity = { kind: 'salvage', targetId: act.targetId as SalvageId, lastProcessedAt: at };
+    } else if (
+      act.kind === 'research' &&
+      typeof act.projectId === 'string' &&
+      (PROJECT_IDS as readonly string[]).includes(act.projectId) &&
+      !base.research.done.includes(act.projectId as ProjectId)
+    ) {
+      base.activity = { kind: 'research', projectId: act.projectId as ProjectId, lastProcessedAt: at };
     }
   }
   return base;

@@ -96,39 +96,47 @@ button {
 }
 
 .px-icon {
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
   image-rendering: pixelated;
   flex: none;
 }
-.px-icon.lg {
-  width: 36px;
-  height: 36px;
+.px-icon.sm {
+  width: 24px;
+  height: 24px;
 }
-.px-icon.xl {
+.px-icon.lg {
   width: 64px;
   height: 64px;
+}
+.px-icon.xl {
+  width: 96px;
+  height: 96px;
 }
 .px-icon.silhouette {
   filter: brightness(0) opacity(0.5);
 }
 
 .portrait {
-  width: 56px;
-  height: 56px;
+  width: 96px;
+  height: 96px;
   image-rendering: pixelated;
   border: 2px solid var(--line-2);
   border-radius: 4px;
   background: #0e0c14;
   flex: none;
 }
+.portrait.md {
+  width: 64px;
+  height: 64px;
+}
 .portrait.sm {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
 }
 .portrait.xs {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-width: 1px;
 }
 
@@ -197,8 +205,12 @@ button {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 256 / 144;
+  aspect-ratio: 16 / 9;
   image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+.scene[data-art='loading'] {
+  filter: saturate(0.85);
 }
 
 .scene-wrap::after {
@@ -1154,6 +1166,7 @@ button {
   width: 24px;
   height: 24px;
   image-rendering: pixelated;
+  image-rendering: pixelated;
   opacity: 0.7;
 }
 .tabbar button.active .tab-icon {
@@ -1396,4 +1409,427 @@ button {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+
+/* ============================================================
+   Operation Rebirth skin — Astra's nine-slice frames (10px insets).
+   Variables are set in main.ts so URLs respect BASE_URL.
+   ============================================================ */
+
+.card {
+  border: 10px solid transparent;
+  border-image: var(--art-panel-iron) 10 fill stretch;
+  background: none;
+  padding: 6px 8px;
+  border-radius: 0;
+  box-shadow: none;
+}
+.card.objective,
+.card.repair.ready,
+.place.running,
+.recipe.running,
+.project.running {
+  border-image-source: var(--art-panel-selected);
+  box-shadow: none;
+}
+.card.objective.done,
+.card.repair.done,
+.card.project.done {
+  border-image-source: var(--art-panel-iron);
+}
+.card.repair,
+.card.recipe,
+.card.train-head {
+  border-image-source: var(--art-panel-engineering);
+}
+.card.repair.ready {
+  border-image-source: var(--art-panel-selected);
+}
+.card.person,
+.card.log-card,
+.card.people {
+  border-image-source: var(--art-panel-wood);
+}
+.card.locked,
+.place.locked,
+.recipe.locked {
+  border-image-source: var(--art-panel-disabled);
+}
+.place {
+  border-left-width: 10px;
+}
+
+.item-tile {
+  border: 10px solid transparent;
+  border-image: var(--art-slot-common) 10 fill stretch;
+  background: none;
+  border-radius: 0;
+  padding: 2px;
+  min-height: 116px;
+}
+.item-tile.rarity-uncommon {
+  border-image-source: var(--art-slot-uncommon);
+  box-shadow: none;
+}
+.item-tile.rarity-rare {
+  border-image-source: var(--art-slot-rare);
+  box-shadow: none;
+}
+.tile-rarity {
+  font: 600 10px var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.rarity-common .tile-rarity {
+  color: var(--r-common);
+}
+.rarity-uncommon .tile-rarity {
+  color: var(--r-uncommon);
+}
+.rarity-rare .tile-rarity {
+  color: var(--r-rare);
+}
+
+.bar-fill {
+  background: var(--art-progress-amber) repeat-x;
+  background-size: 32px 100%;
+  image-rendering: pixelated;
+}
+.bar.teal .bar-fill,
+.bar.cyan .bar-fill {
+  background: var(--art-progress-cyan) repeat-x;
+  background-size: 32px 100%;
+}
+.bar.copper .bar-fill {
+  background: var(--art-progress-copper) repeat-x;
+  background-size: 32px 100%;
+}
+
+.sheet-panel {
+  border: 10px solid transparent;
+  border-bottom: 0;
+  border-image: var(--art-panel-wood) 10 fill stretch;
+  border-radius: 0;
+}
+.onb-card {
+  border: 10px solid transparent;
+  border-image: var(--art-panel-selected) 10 fill stretch;
+  border-radius: 0;
+}
+
+.disc .px-icon {
+  margin-bottom: 4px;
+}
+.disc-sheet .px-icon.xl {
+  align-self: flex-start;
+}
+
+.scene-hotspot {
+  position: absolute;
+  z-index: 2;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.scene-hotspot:focus-visible {
+  outline: 2px solid var(--amber-hot);
+  outline-offset: -2px;
+}
+.scene-hotspot img {
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  image-rendering: pixelated;
+  opacity: 0.85;
+  filter: drop-shadow(0 1px 0 #000);
+}
+.scene-hotspot.active img {
+  animation: bob 1.2s ease-in-out infinite;
+  opacity: 1;
+}
+@keyframes bob {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Desktop: show the 384×216 scene at an exact 2× scale. */
+@media (min-width: 860px) {
+  .app {
+    max-width: 792px;
+  }
+  .scene-wrap {
+    width: 772px;
+    align-self: center;
+  }
+  .dock .nowbar,
+  .dock .tabbar {
+    max-width: 792px;
+  }
+}
+.portrait.silhouette {
+  filter: brightness(0) opacity(0.45);
+}
+.dialogue .line .portrait {
+  width: 88px;
+  height: 88px;
+}
+
+/* ============================================================
+   Ascension (0.3): skill management, tools, research, salvage
+   ============================================================ */
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.skill-tile {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 72px;
+  padding: 4px 6px;
+  text-align: left;
+  color: var(--text);
+  border: 10px solid transparent;
+  border-image: var(--art-panel-iron) 10 fill stretch;
+  background: none;
+  cursor: pointer;
+}
+.skill-tile.active {
+  border-image-source: var(--art-panel-selected);
+}
+.skill-tile.training .skill-tile-status {
+  color: var(--amber-hot);
+}
+.skill-tile.training .skill-tile-status::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
+  animation: pulse 1.4s ease-in-out infinite;
+  vertical-align: 1px;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+.skill-tile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+}
+.skill-tile-name {
+  font-weight: 700;
+  font-size: 13.5px;
+  line-height: 1.2;
+}
+.skill-tile-level {
+  font: 800 20px/1 var(--mono);
+  color: var(--teal);
+}
+.skill-engineering .skill-tile-level {
+  color: var(--copper);
+}
+.skill-salvaging .skill-tile-level {
+  color: var(--amber);
+}
+.skill-research .skill-tile-level,
+.skill-research .level-num {
+  color: var(--cyan);
+}
+.skill-salvaging .level-num {
+  color: var(--amber);
+}
+.skill-tile-status {
+  font: 11px var(--mono);
+}
+
+.next-unlock {
+  color: var(--amber-hot);
+  text-align: right;
+}
+
+.milestones summary {
+  cursor: pointer;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  font: 600 12.5px var(--mono);
+  color: var(--text-dim);
+  list-style: none;
+}
+.milestones summary::-webkit-details-marker {
+  display: none;
+}
+.milestones summary::before {
+  content: '\25B8';
+  margin-right: 8px;
+  color: var(--amber);
+  transition: transform 0.15s;
+}
+.milestones[open] summary::before {
+  transform: rotate(90deg);
+}
+.milestone-list {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.milestone-list li {
+  display: flex;
+  gap: 10px;
+}
+.milestone-list li.done {
+  color: var(--text-dim);
+}
+.milestone-list li.done .ms-level::after {
+  content: ' \2713';
+  color: var(--good);
+}
+.milestone-list li.soon {
+  color: var(--amber-hot);
+}
+.ms-level {
+  flex: none;
+  width: 56px;
+  font-size: 12px;
+}
+
+.tool-slot .tool-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+}
+.tool-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.btn-chip {
+  appearance: none;
+  min-height: 36px;
+  min-width: 64px;
+  padding: 0 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--panel-3);
+  color: var(--text);
+  font: 700 12.5px var(--font);
+  cursor: pointer;
+}
+.btn-chip.primary {
+  background: var(--amber);
+  color: #24160a;
+  border-color: var(--amber-hot);
+}
+.btn-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.section-title {
+  margin: 6px 4px 0;
+  font: 600 11px var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card.salvage,
+.card.project {
+  border-image-source: var(--art-panel-ceramic);
+}
+.card.salvage.locked,
+.card.project.locked {
+  border-image-source: var(--art-panel-disabled);
+}
+.card.project.done {
+  border-image-source: var(--art-panel-iron);
+  opacity: 0.85;
+}
+.card.salvage.running,
+.card.project.running {
+  border-image-source: var(--art-panel-selected);
+}
+
+.tool-choices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tool-choices li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: var(--night);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.tool-choices li.on {
+  border-color: var(--amber);
+}
+.tool-choices .tool-text {
+  flex: 1;
+}
+.danger {
+  color: var(--danger);
+}
+.reward-locked {
+  color: var(--muted);
+}
+.feats li div {
+  gap: 2px;
+}
+.disc-study {
+  font: 10.5px var(--mono);
+  color: var(--amber-hot);
+}
+.disc-study.done {
+  color: var(--cyan);
+}
+.disc-research {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pip.improvement {
+  border-style: dashed;
+}
+.pip.improvement.on {
+  border-style: solid;
+}
+.card.overview .skill-grid {
+  margin-top: 2px;
+}
+.segmented.compact button {
+  padding: 0 8px;
+  font-size: 12.5px;
+  flex: 1 0 auto;
 }

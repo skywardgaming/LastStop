@@ -9,15 +9,22 @@ exist burns cyan every night.
 
 ## The loop
 
-Scavenging gathers materials → Engineering turns them into parts → repairs
-make No. 9 visibly whole, speed up your work and unlock new places to search →
-new places hold new materials and the clues to Ashvale's mystery.
+Scavenging finds materials, machinery and old notes → Salvaging strips
+machinery for fittings, bearings, springs and magnets → Engineering makes
+parts and tools → Railway Research studies your discoveries for blueprints
+and better methods → repairs and improvements change No. 9, speed everything
+up and open new places to search.
 
-- 2 skills (Scavenging, Engineering), levels 1–20
-- 3 locations, 7 recipes, 17 items with rarity
-- 5 locomotive repairs, each visible in the scene and granting a bonus
-- 12 discoveries, 2 characters, 11 conversations, 12 feats, 10 chapter goals
-- Up to 8 hours of offline progress for either skill
+- 4 skills (Scavenging, Engineering, Salvaging, Railway Research), levels 1–20
+- 3 locations, 5 salvage targets, 17 recipes, 12 research projects
+- 36 items with rarity, 10 tools in three tiers, one tool slot per skill
+- 5 repairs + 3 improvements to No. 9, each visible and granting a bonus
+- 12 discoveries, 2 characters, 17 conversations, 21 feats with rewards,
+  20 objectives across two chapters
+- Up to 8 hours of offline progress for every activity
+
+Art: **Operation Rebirth v1.0 by Astra** (`public/art/rebirth/`, provenance in
+`docs/art-rebirth/`).
 
 ## Play locally
 
@@ -49,11 +56,12 @@ type-checking, tests and a build on every pull request.
 src/
   core/                 Pure rules — no DOM, fully unit-tested
     content/
-      items.ts            17 items, rarity, descriptions
-      world.ts            Locations, recipes, repairs and their bonuses
+      items.ts            36 items, rarity, descriptions
+      world.ts            Skills, locations, salvage, research, tools,
+                          recipes, repairs/improvements and their bonuses
       story.ts            Discoveries, characters, dialogue, feats, objectives
-    activity.ts         advance(): timestamp engine for both skills
-    game.ts             Player operations (start/stop/repair/tick) + story evaluation
+    activity.ts         advance(): timestamp engine for all four activities
+    game.ts             Player operations (start/stop/repair/equip/tick) + story evaluation
     rules.ts            Modifiers, unlocks, durations, blockers
     inventory.ts        Atomic add/remove; never negative
     save.ts             Versioned saves, migrations, sanitising
@@ -63,10 +71,15 @@ src/
   ui/
     app.ts              Controller: loop, saving, feedback, sheets, onboarding
     views.ts            Station / Skills / Train / Satchel / Journal
-    scene.ts            256×144 Ashvale canvas scene
-    sprites.ts          Character-map pixel art: items, tabs, portraits, figures
+    art.ts              Rebirth asset registry and decoded-image loader
+    scene.ts            384×216 Rebirth scene (layers, 32 cached repair combos, effects)
+    scene-fallback.ts   0.2 procedural scene, shown while art loads or if it fails
+    sprites.ts          Icon/portrait URLs (art first, code-drawn fallback)
+    sprites-extra.ts    16×16 placeholders for items not in the art pack
     dom.ts              Tiny hyperscript helper
-tests/                  Vitest
+public/art/rebirth/     Astra's Operation Rebirth PNGs
+docs/art-rebirth/       Pack README, manifest, QA checksums, skin reference
+tests/                  Vitest (sim.ts: goal-directed full-game bot)
 ```
 
 ### Progression and anti-exploit rules
@@ -92,11 +105,16 @@ then sanitised. An unreadable save is kept under `laststop.save.corrupt`.
 ### Adding content
 
 - **Item:** add to `ITEM_IDS`/`ITEMS` and draw an icon in `ITEM_SPRITES`.
-- **Location / recipe / repair:** add to `world.ts`. The no-dead-end test will
-  fail if anything required can't be obtained.
+- **Location / salvage target / research project / tool / recipe / repair:**
+  add to `world.ts`. The no-dead-end test and the full-game bot fail if
+  anything required can't be obtained.
 - **Discovery / dialogue / feat / objective:** add to `story.ts`.
 - **Save shape change:** bump `SAVE_VERSION` and add a migration step.
 
 ## Art
 
-All art is original placeholder pixel art drawn in code — no external assets.
+Scene, characters, item and discovery icons, UI frames and effects are
+Astra's original **Operation Rebirth v1.0** pack, integrated per its README
+(384×216 logical scene, 256×102 train with per-repair overlays, nearest-
+neighbour rendering, live station-sign text). Icons for items added in 0.3
+are code-drawn 16×16 placeholders until matching art arrives.

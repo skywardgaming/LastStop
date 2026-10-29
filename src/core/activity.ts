@@ -1,12 +1,25 @@
-// The single source of truth for timed progress. Live ticks, a sleeping
-// tab and a cold start after days away all go through advance().
+// The single source of truth for timed progress. Live ticks, a sleeping tab
+// and a cold start after days away all go through advance(), for every kind
+// of activity.
 
 import { ITEMS, type ItemId } from './content/items';
 import { DISCOVERIES } from './content/story';
-import { LOCATIONS, OFFLINE_CAP_MS, RECIPES, type LocationId, type RecipeId, type SkillId } from './content/world';
+import {
+  LOCATIONS,
+  OFFLINE_CAP_MS,
+  PROJECTS,
+  RECIPES,
+  SALVAGE,
+  type DropDef,
+  type LocationId,
+  type ProjectId,
+  type RecipeId,
+  type SalvageId,
+  type SkillId,
+} from './content/world';
 import { addItems, hasItems, removeItems } from './inventory';
 import { nextInt, nextRandom } from './rng';
-import { activitySkill, dropChance, durationOf, xpPerAction } from './rules';
+import { activitySkill, dropChance, durationOf, modifiers, xpPerAction } from './rules';
 import { emptyInventory, type Activity, type GameState, type Inventory } from './state';
 import { levelForXp } from './xp';
 
@@ -15,6 +28,8 @@ export interface LevelUp {
   from: number;
   to: number;
 }
+
+export type StopReason = 'outOfMaterials' | 'completed';
 
 export interface AdvanceResult {
   state: GameState;
@@ -25,9 +40,15 @@ export interface AdvanceResult {
   itemsSpent: Inventory;
   rareFinds: ItemId[];
   discoveries: string[];
+  /** Salvage actions that yielded double. */
+  doubles: number;
+  /** Craft/research actions that kept their inputs. */
+  saves: number;
+  /** Research project finished during this span. */
+  completedProject: ProjectId | null;
   levelUp: LevelUp | null;
-  /** Set when an activity ended on its own (e.g. crafting ran out of materials). */
-  stopped: 'outOfMaterials' | null;
+  /** Set when an activity ended on its own. */
+  stopped: StopReason | null;
   /** Real time since the last credited moment (0 if the clock went backwards). */
   elapsedMs: number;
   /** Time discarded because it exceeded the offline cap. */
@@ -46,6 +67,9 @@ function emptyResult(state: GameState): AdvanceResult {
     itemsSpent: emptyInventory(),
     rareFinds: [],
     discoveries: [],
+    doubles: 0,
+    saves: 0,
+    completedProject: null,
     levelUp: null,
     stopped: null,
     elapsedMs: 0,
@@ -67,7 +91,7 @@ export function advance(state: GameState, now: number): AdvanceResult {
   if (!Number.isFinite(now)) return emptyResult(state);
   if (now < state.clockHighWater) return { ...emptyResult(state), clockRewound: true };
 
-  const base = { ...state, clockHighWater: now };
+  const base: GameState = { ...state, clockHighWater: now };
   const activity = base.activity;
   if (!activity) return emptyResult(base);
 
@@ -79,37 +103,57 @@ export function advance(state: GameState, now: number): AdvanceResult {
   const duration = durationOf(base, activity);
   const possible = Math.floor((now - creditFrom) / duration);
 
-  const result =
-    activity.kind === 'scavenge'
-      ? runScavenge(base, activity.locationId, possible, creditFrom, duration)
-      : runCraft(base, activity.recipeId, possible);
+  let run: RunResult;
+  switch (activity.kind) {
+    case 'scavenge':
+      run = runScavenge(base, activity.locationId, possible, creditFrom, duration);
+      break;
+    case 'craft':
+      run = runCraft(base, activity.recipeId, possible);
+      break;
+    case 'salvage':
+      run = runSalvage(base, activity.targetId, possible);
+      break;
+    case 'research':
+      run = runResearch(base, activity.projectId, possible);
+      break;
+  }
 
   const skill = activitySkill(activity);
-  const xpGained = result.actions * xpPerAction(base, activity);
+  const xpGained = run.actions * xpPerAction(base, activity);
   const xpBefore = base.skills[skill].xp;
   const from = levelForXp(xpBefore);
   const to = levelForXp(xpBefore + xpGained);
 
-  let nextActivity: Activity | null = { ...activity, lastProcessedAt: creditFrom + result.actions * duration };
-  if (result.stopped) nextActivity = null;
+  // Track lifetime totals of everything obtained (for reveals and goals).
+  const obtained = { ...run.state.stats.obtained };
+  for (const id of Object.keys(run.gained) as ItemId[]) {
+    if (run.gained[id] > 0) obtained[id] = (obtained[id] ?? 0) + run.gained[id];
+  }
+
+  const nextActivity: Activity | null = run.stopped ? null : { ...activity, lastProcessedAt: creditFrom + run.actions * duration };
 
   const nextState: GameState = {
-    ...result.state,
-    skills: { ...result.state.skills, [skill]: { xp: xpBefore + xpGained } },
+    ...run.state,
+    skills: { ...run.state.skills, [skill]: { xp: xpBefore + xpGained } },
     activity: nextActivity,
+    stats: { ...run.state.stats, obtained, rareFinds: run.state.stats.rareFinds + run.rareFinds.length },
   };
 
   return {
     state: nextState,
-    actions: result.actions,
+    actions: run.actions,
     skill,
     xpGained,
-    itemsGained: result.gained,
-    itemsSpent: result.spent,
-    rareFinds: result.rareFinds,
-    discoveries: result.discoveries,
+    itemsGained: run.gained,
+    itemsSpent: run.spent,
+    rareFinds: run.rareFinds,
+    discoveries: run.discoveries,
+    doubles: run.doubles,
+    saves: run.saves,
+    completedProject: run.completed,
     levelUp: to > from ? { skill, from, to } : null,
-    stopped: result.stopped,
+    stopped: run.stopped,
     elapsedMs: rawElapsed,
     discardedMs,
     clockRewound: false,
@@ -123,44 +167,59 @@ interface RunResult {
   spent: Inventory;
   rareFinds: ItemId[];
   discoveries: string[];
-  stopped: 'outOfMaterials' | null;
+  doubles: number;
+  saves: number;
+  completed: ProjectId | null;
+  stopped: StopReason | null;
 }
 
-function runScavenge(
-  state: GameState,
-  locationId: LocationId,
-  actions: number,
-  startAt: number,
-  duration: number,
-): RunResult {
+function blankRun(state: GameState): RunResult {
+  return {
+    state,
+    actions: 0,
+    gained: emptyInventory(),
+    spent: emptyInventory(),
+    rareFinds: [],
+    discoveries: [],
+    doubles: 0,
+    saves: 0,
+    completed: null,
+    stopped: null,
+  };
+}
+
+/** Rolls a drop table once, adding to `gained`. Returns the new RNG state. */
+function rollDrops(state: GameState, drops: DropDef[], rng: number, gained: Inventory, rare: ItemId[], times = 1): number {
+  let r = rng;
+  for (const drop of drops) {
+    const roll = nextRandom(r);
+    r = roll.state;
+    if (roll.value < dropChance(state, drop.item, drop.chance)) {
+      const amount = nextInt(r, drop.min, drop.max);
+      r = amount.state;
+      gained[drop.item] += amount.value * times;
+      if (ITEMS[drop.item].rarity === 'rare') rare.push(drop.item);
+    }
+  }
+  return r;
+}
+
+function runScavenge(state: GameState, locationId: LocationId, actions: number, startAt: number, duration: number): RunResult {
+  const out = blankRun(state);
   const loc = LOCATIONS[locationId];
-  const gained = emptyInventory();
-  const rareFinds: ItemId[] = [];
-  const discoveries: string[] = [];
   const found: Record<string, number> = { ...state.discoveries };
   const pending = DISCOVERIES.filter((d) => d.location === locationId && !(d.id in found));
-  const chances = loc.drops.map((d) => dropChance(state, d.item, d.chance));
   let rng = state.rngState;
   let searches = state.stats.searches[locationId] ?? 0;
 
   for (let i = 0; i < actions; i++) {
     searches++;
-    loc.drops.forEach((drop, k) => {
-      const roll = nextRandom(rng);
-      rng = roll.state;
-      if (roll.value < (chances[k] ?? 0)) {
-        const amount = nextInt(rng, drop.min, drop.max);
-        rng = amount.state;
-        gained[drop.item] += amount.value;
-        if (ITEMS[drop.item].rarity === 'rare') rareFinds.push(drop.item);
-      }
-    });
+    rng = rollDrops(state, loc.drops, rng, out.gained, out.rareFinds);
 
     // At most one discovery per search; pity guarantees key finds.
     const roll = nextRandom(rng);
     rng = roll.state;
-    const guaranteed = pending.find((d) => !(d.id in found) && d.guaranteeAt !== undefined && searches >= d.guaranteeAt);
-    let pick = guaranteed;
+    let pick = pending.find((d) => !(d.id in found) && d.guaranteeAt !== undefined && searches >= d.guaranteeAt);
     if (!pick) {
       let acc = 0;
       for (const d of pending) {
@@ -174,72 +233,146 @@ function runScavenge(
     }
     if (pick) {
       found[pick.id] = startAt + (i + 1) * duration;
-      discoveries.push(pick.id);
+      out.discoveries.push(pick.id);
     }
   }
 
-  const obtained = { ...state.stats.obtained };
-  for (const id of Object.keys(gained) as ItemId[]) {
-    if (gained[id] > 0) obtained[id] = (obtained[id] ?? 0) + gained[id];
-  }
-
-  return {
-    state: {
-      ...state,
-      inventory: addItems(state.inventory, gained),
-      discoveries: found,
-      rngState: rng,
-      stats: {
-        ...state.stats,
-        searches: { ...state.stats.searches, [locationId]: searches },
-        rareFinds: state.stats.rareFinds + rareFinds.length,
-        obtained,
-      },
-    },
-    actions,
-    gained,
-    spent: emptyInventory(),
-    rareFinds,
-    discoveries,
-    stopped: null,
+  out.actions = actions;
+  out.state = {
+    ...state,
+    inventory: addItems(state.inventory, out.gained),
+    discoveries: found,
+    rngState: rng,
+    stats: { ...state.stats, searches: { ...state.stats.searches, [locationId]: searches } },
   };
+  return out;
 }
 
 function runCraft(state: GameState, recipeId: RecipeId, possible: number): RunResult {
+  const out = blankRun(state);
   const recipe = RECIPES[recipeId];
+  const m = modifiers(state);
+  const yieldPer = recipe.outputQty + (m.recipeYield[recipeId] ?? 0);
   let inventory = state.inventory;
-  let actions = 0;
-  let stopped: 'outOfMaterials' | null = null;
+  let rng = state.rngState;
 
   for (let i = 0; i < possible; i++) {
-    const after = removeItems(inventory, recipe.inputs);
-    if (!after) {
-      stopped = 'outOfMaterials';
+    if (!hasItems(inventory, recipe.inputs)) {
+      out.stopped = 'outOfMaterials';
       break;
     }
-    inventory = addItems(after, { [recipe.output]: recipe.outputQty });
-    actions++;
+    let keep = false;
+    if (m.saveChance.engineering > 0) {
+      const roll = nextRandom(rng);
+      rng = roll.state;
+      keep = roll.value < m.saveChance.engineering;
+    }
+    if (keep) out.saves++;
+    else {
+      inventory = removeItems(inventory, recipe.inputs) as Inventory;
+      for (const [id, qty] of Object.entries(recipe.inputs) as [ItemId, number][]) out.spent[id] += qty;
+    }
+    inventory = addItems(inventory, { [recipe.output]: yieldPer });
+    out.gained[recipe.output] += yieldPer;
+    out.actions++;
   }
-  // Also stop if the next action could not start.
-  if (!stopped && !hasItems(inventory, recipe.inputs)) stopped = 'outOfMaterials';
+  // Stop when the next action can't start, so the bar doesn't fill for nothing.
+  if (!out.stopped && !hasItems(inventory, recipe.inputs)) out.stopped = 'outOfMaterials';
 
-  const gained = emptyInventory();
-  gained[recipe.output] = actions * recipe.outputQty;
-  const spent = emptyInventory();
-  for (const [id, qty] of Object.entries(recipe.inputs) as [ItemId, number][]) spent[id] = qty * actions;
+  out.state = { ...state, inventory, rngState: rng, stats: { ...state.stats, crafts: state.stats.crafts + out.actions } };
+  return out;
+}
 
-  const obtained = { ...state.stats.obtained };
-  if (actions > 0) obtained[recipe.output] = (obtained[recipe.output] ?? 0) + gained[recipe.output];
+function runSalvage(state: GameState, targetId: SalvageId, possible: number): RunResult {
+  const out = blankRun(state);
+  const target = SALVAGE[targetId];
+  const m = modifiers(state);
+  let inventory = state.inventory;
+  let rng = state.rngState;
 
-  return {
-    state: { ...state, inventory, stats: { ...state.stats, crafts: state.stats.crafts + actions, obtained } },
-    actions,
-    gained,
-    spent,
-    rareFinds: [],
-    discoveries: [],
-    stopped,
+  for (let i = 0; i < possible; i++) {
+    if (target.input) {
+      const after = removeItems(inventory, target.input);
+      if (!after) {
+        out.stopped = 'outOfMaterials';
+        break;
+      }
+      inventory = after;
+      for (const [id, qty] of Object.entries(target.input) as [ItemId, number][]) out.spent[id] += qty;
+    }
+    let times = 1;
+    if (m.doubleChance > 0) {
+      const roll = nextRandom(rng);
+      rng = roll.state;
+      if (roll.value < m.doubleChance) {
+        times = 2;
+        out.doubles++;
+      }
+    }
+    const before = { ...out.gained };
+    rng = rollDrops(state, target.drops, rng, out.gained, out.rareFinds, times);
+    const delta: Partial<Inventory> = {};
+    for (const id of Object.keys(out.gained) as ItemId[]) if (out.gained[id] !== before[id]) delta[id] = out.gained[id] - before[id];
+    inventory = addItems(inventory, delta);
+    out.actions++;
+  }
+  if (!out.stopped && target.input && !hasItems(inventory, target.input)) out.stopped = 'outOfMaterials';
+
+  out.state = { ...state, inventory, rngState: rng, stats: { ...state.stats, salvages: state.stats.salvages + out.actions } };
+  return out;
+}
+
+function runResearch(state: GameState, projectId: ProjectId, possible: number): RunResult {
+  const out = blankRun(state);
+  const project = PROJECTS[projectId];
+  const m = modifiers(state);
+  let inventory = state.inventory;
+  let rng = state.rngState;
+  let progress = state.research.progress[projectId] ?? 0;
+  const total = project.actions;
+  let done = state.research.done;
+
+  for (let i = 0; i < possible; i++) {
+    if (!hasItems(inventory, project.input)) {
+      out.stopped = 'outOfMaterials';
+      break;
+    }
+    let keep = false;
+    if (m.saveChance.research > 0) {
+      const roll = nextRandom(rng);
+      rng = roll.state;
+      keep = roll.value < m.saveChance.research;
+    }
+    if (keep) out.saves++;
+    else {
+      inventory = removeItems(inventory, project.input) as Inventory;
+      for (const [id, qty] of Object.entries(project.input) as [ItemId, number][]) out.spent[id] += qty;
+    }
+    out.actions++;
+    progress++;
+    if (total !== undefined && progress >= total) {
+      done = [...done, projectId];
+      out.completed = projectId;
+      out.stopped = 'completed';
+      break;
+    }
+  }
+  if (!out.stopped && !hasItems(inventory, project.input)) out.stopped = 'outOfMaterials';
+
+  const nextProgress = { ...state.research.progress };
+  if (total !== undefined) {
+    if (out.completed) delete nextProgress[projectId];
+    else if (progress > 0) nextProgress[projectId] = progress;
+  }
+
+  out.state = {
+    ...state,
+    inventory,
+    rngState: rng,
+    research: { progress: nextProgress, done },
+    stats: { ...state.stats, studies: state.stats.studies + out.actions },
   };
+  return out;
 }
 
 /** Fraction (0–1) of the current action that has elapsed. */

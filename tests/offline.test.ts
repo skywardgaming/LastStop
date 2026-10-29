@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { advance } from '../src/core/activity';
 import { LOCATIONS, OFFLINE_CAP_MS } from '../src/core/content/world';
-import { startCrafting, startScavenging, stopActivity, tick } from '../src/core/game';
+import { startActivity, startCrafting, startScavenging, stopActivity, tick } from '../src/core/game';
 import { deserialize, serialize } from '../src/core/save';
 import { fresh, HOUR, MIN, running, scavenging, SEED, T0, withItems } from './helpers';
 
@@ -124,3 +124,44 @@ describe('invalid timestamps', () => {
     expect(advance(s, T0 + HOUR + ACTION).actions).toBe(1);
   });
 });
+
+describe('offline progress for every activity', () => {
+  it('salvage and research also cap at eight hours and never pay twice', () => {
+    const salv = startActivityAt(fresh(), { kind: 'salvage', targetId: 'scrapWagon' });
+    const a = advance(salv, T0 + 30 * HOUR);
+    expect(a.discardedMs).toBe(22 * HOUR);
+    expect(a.actions).toBe(Math.floor(OFFLINE_CAP_MS / 3500));
+    expect(advance(a.state, T0 + 30 * HOUR).actions).toBe(0);
+
+    const res = startActivityAt(withItems(fresh(), { waterloggedNotes: 100000 }), { kind: 'research', projectId: 'catalogue' });
+    const b = advance(res, T0 + 30 * HOUR);
+    expect(b.actions).toBe(Math.floor(OFFLINE_CAP_MS / 3500));
+    expect(advance(b.state, T0 + 30 * HOUR).actions).toBe(0);
+  });
+
+  it('switching between all four activity kinds never credits more time than passed', () => {
+    let s = withItems(fresh(), { scrapIron: 1000, waterloggedNotes: 1000 });
+    const specs = [
+      { kind: 'scavenge', locationId: 'derelictPlatform' },
+      { kind: 'craft', recipeId: 'ironPlate' },
+      { kind: 'salvage', targetId: 'scrapWagon' },
+      { kind: 'research', projectId: 'catalogue' },
+    ] as const;
+    let t = T0;
+    let totalActions = 0;
+    for (let i = 0; i < 40; i++) {
+      t += 7_000;
+      const r = startActivity(s, specs[i % 4] as (typeof specs)[number], t);
+      totalActions += r.tick.actions;
+      s = r.tick.state;
+    }
+    // At most one action per 3 s (the fastest base action) over 280 s.
+    expect(totalActions).toBeLessThanOrEqual(Math.floor((t - T0) / 3000));
+  });
+});
+
+function startActivityAt(s: Parameters<typeof startActivity>[0], spec: Parameters<typeof startActivity>[1]): ReturnType<typeof fresh> {
+  const r = startActivity(s, spec, T0);
+  if (!r.ok) throw new Error(r.reason);
+  return r.tick.state;
+}

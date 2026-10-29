@@ -3,6 +3,8 @@
 
 import type { ItemId } from '../core/content/items';
 import type { SpeakerId } from '../core/content/story';
+import { artUrl, DISCOVERY_ART, ITEM_ART, NAV_ART, portraitArt, type ArtSpeaker, type Mood } from './art';
+import { EXTRA_SPRITES } from './sprites-extra';
 
 export type Palette = Record<string, string>;
 export interface Sprite {
@@ -48,7 +50,8 @@ const COPPER = { c: '#e0884a', C: '#a3552a', h: '#f6c08e' };
 const CYAN = { a: '#bff7f2', b: '#5fe3d6', B: '#1e8f8c', N: '#0f4c52' };
 const WOOD = { w: '#b07a46', W: '#7a4f2a', v: '#d39a5c' };
 
-export const ITEM_SPRITES: Record<ItemId, Sprite> = {
+/** Code-drawn fallbacks; Astra's art (ITEM_ART) is used wherever it exists. */
+export const ITEM_SPRITES: Partial<Record<ItemId, Sprite>> & Record<string, Sprite> = {
   scrapIron: {
     palette: { ...METAL, ...RUST },
     rows: [
@@ -341,7 +344,15 @@ export const ITEM_SPRITES: Record<ItemId, Sprite> = {
 };
 
 export function itemIconUrl(id: ItemId): string {
-  return spriteUrl(`item:${id}`, ITEM_SPRITES[id]);
+  const art = ITEM_ART[id];
+  if (art) return artUrl(art);
+  const sprite = EXTRA_SPRITES[id] ?? ITEM_SPRITES[id];
+  return sprite ? spriteUrl(`item:${id}`, sprite) : '';
+}
+
+export function discoveryIconUrl(id: string): string {
+  const art = DISCOVERY_ART[id];
+  return art ? artUrl(art) : '';
 }
 
 // ---------- tab icons (12×12) ----------
@@ -437,6 +448,8 @@ export const TAB_SPRITES: Record<string, Sprite> = {
 };
 
 export function tabIconUrl(id: string): string {
+  const art = NAV_ART[id];
+  if (art) return artUrl(art);
   const s = TAB_SPRITES[id];
   return s ? spriteUrl(`tab:${id}`, s) : '';
 }
@@ -520,7 +533,13 @@ export const PORTRAITS: Record<SpeakerId, Sprite> = {
   },
 };
 
-export function portraitUrl(id: SpeakerId): string {
+export function portraitUrl(id: SpeakerId | 'you', mood: Mood = 'neutral'): string {
+  const who: ArtSpeaker = id === 'you' ? 'conductor' : id;
+  return portraitArt(who, mood);
+}
+
+/** Code-drawn portrait, used only if the art fails to load. */
+export function fallbackPortraitUrl(id: SpeakerId): string {
   return spriteUrl(`portrait:${id}`, PORTRAITS[id]);
 }
 

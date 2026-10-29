@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { advance } from '../src/core/activity';
 import { DISCOVERIES, OBJECTIVES } from '../src/core/content/story';
-import { LOCATIONS, RECIPE_IDS, RECIPES, REPAIR_IDS, REPAIRS } from '../src/core/content/world';
+import { LOCATIONS, PROJECT_IDS, PROJECTS, RECIPE_IDS, RECIPES, REPAIRS, SALVAGE, SALVAGE_IDS, TOOL_IDS, TRAIN_PART_IDS } from '../src/core/content/world';
 import { ITEMS, type ItemId } from '../src/core/content/items';
 import { evaluate, markDialogueRead, startScavenging, unreadDialogues } from '../src/core/game';
 import { locationAccess } from '../src/core/rules';
@@ -34,15 +34,35 @@ describe('unlock progression', () => {
     expect('shedKey' in r.state.discoveries).toBe(true);
   });
 
-  it('every repair and recipe input can be obtained from a location or a recipe (no dead ends)', () => {
-    const gatherable = new Set<ItemId>(Object.values(LOCATIONS).flatMap((l) => l.drops.map((d) => d.item)));
+  it('every item needed anywhere can be obtained (no dead ends)', () => {
+    const gatherable = new Set<ItemId>([
+      ...Object.values(LOCATIONS).flatMap((l) => l.drops.map((d) => d.item)),
+      ...Object.values(SALVAGE).flatMap((t) => t.drops.map((d) => d.item)),
+    ]);
     const craftable = new Set<ItemId>(RECIPE_IDS.map((r) => RECIPES[r].output));
     const needed = [
       ...RECIPE_IDS.flatMap((r) => Object.keys(RECIPES[r].inputs)),
-      ...REPAIR_IDS.flatMap((r) => Object.keys(REPAIRS[r].cost)),
+      ...TRAIN_PART_IDS.flatMap((r) => Object.keys(REPAIRS[r].cost)),
+      ...SALVAGE_IDS.flatMap((t) => Object.keys(SALVAGE[t].input ?? {})),
+      ...PROJECT_IDS.flatMap((p) => Object.keys(PROJECTS[p].input)),
     ] as ItemId[];
     for (const id of needed) expect(gatherable.has(id) || craftable.has(id), id).toBe(true);
     for (const id of Object.keys(ITEMS) as ItemId[]) expect(gatherable.has(id) || craftable.has(id), id).toBe(true);
+  });
+
+  it('every research gate points at a real discovery, and every blueprint at a real project', () => {
+    for (const p of PROJECT_IDS) {
+      const d = PROJECTS[p].discoveryRequired;
+      if (d) expect(DISCOVERIES.some((x) => x.id === d), p).toBe(true);
+    }
+    for (const r of RECIPE_IDS) if (RECIPES[r].research) expect(PROJECT_IDS).toContain(RECIPES[r].research);
+    for (const t of TRAIN_PART_IDS) if (REPAIRS[t].research) expect(PROJECT_IDS).toContain(REPAIRS[t].research);
+    for (const t of TOOL_IDS) expect(RECIPE_IDS as readonly string[]).toContain(t);
+  });
+
+  it('discoveries that gate required research are guaranteed eventually', () => {
+    const gating = new Set(['firemansLedger', 'hummingRelay', 'shedKey']);
+    for (const d of DISCOVERIES) if (gating.has(d.id)) expect(d.guaranteeAt, d.id).toBeDefined();
   });
 });
 
