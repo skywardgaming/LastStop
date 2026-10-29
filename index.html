@@ -3,54 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#0b0a10" />
+    <meta name="theme-color" content="#0a0910" />
     <meta name="color-scheme" content="dark" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Last Stop" />
     <meta name="description" content="LAST STOP — an idle railway mystery. Restore Locomotive No. 9 at Ashvale Station." />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230b0a10'/%3E%3Crect x='2' y='5' width='5' height='6' fill='%231f3a33'/%3E%3Crect x='7' y='7' width='7' height='4' fill='%231f3a33'/%3E%3Crect x='11' y='4' width='2' height='3' fill='%231f3a33'/%3E%3Crect x='4' y='9' width='2' height='2' fill='%23ffae4a'/%3E%3Crect x='13' y='2' width='2' height='2' fill='%235fe3d6'/%3E%3Crect x='1' y='12' width='14' height='1' fill='%23968a98'/%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230a0910'/%3E%3Crect x='2' y='5' width='5' height='6' fill='%231f3a33'/%3E%3Crect x='7' y='7' width='7' height='4' fill='%231f3a33'/%3E%3Crect x='11' y='4' width='2' height='3' fill='%231f3a33'/%3E%3Crect x='4' y='9' width='2' height='2' fill='%23ffae4a'/%3E%3Crect x='13' y='2' width='2' height='2' fill='%236bddda'/%3E%3Crect x='1' y='12' width='14' height='1' fill='%23c9a15a'/%3E%3C/svg%3E" />
     <title>LAST STOP · Ashvale</title>
   </head>
   <body>
-    <div class="app">
-      <header class="hud">
-        <div class="brand">
-          <h1>LAST STOP</h1>
-          <span>Ashvale Station</span>
+    <a class="skip-link" href="#screen">Skip to content</a>
+
+    <div id="shell" class="shell" data-tab="station">
+      <header class="masthead" id="masthead">
+        <div class="masthead-id">
+          <span class="masthead-eyebrow" id="mast-eyebrow">Ashvale Station</span>
+          <h1 class="masthead-title" id="mast-title">Last Stop</h1>
         </div>
-        <span id="save-status" class="save-status" aria-live="polite"></span>
+        <div class="masthead-status">
+          <span id="save-status" class="save-pip" role="status" aria-label="Not saved yet"></span>
+          <button id="status-train" class="status-chip" type="button"></button>
+          <button id="menu-btn" class="icon-btn" type="button" aria-label="Game menu" aria-haspopup="dialog"></button>
+        </div>
       </header>
 
-      <div id="scene-wrap" class="scene-wrap">
-        <canvas id="scene" class="scene" width="256" height="144" aria-label="Ashvale Station and Locomotive No. 9 in the rain"></canvas>
-        <div id="toasts" class="toasts" aria-live="polite"></div>
-        <p id="scene-caption" class="scene-caption"></p>
+      <nav id="nav" class="nav" aria-label="Main"></nav>
+
+      <div class="theatre" id="theatre">
+        <figure class="stage" id="stage">
+          <div class="viewport" id="scene-wrap">
+            <canvas id="scene" class="pixel" width="384" height="216" role="img" aria-label="Ashvale Station at night in the rain, with Locomotive No. 9 on the line"></canvas>
+            <div id="hotspots" class="hotspots"></div>
+          </div>
+          <figcaption id="scene-caption" class="scene-caption" aria-live="off"></figcaption>
+        </figure>
+
+        <div id="dock" class="dock is-idle" role="region" aria-label="Current activity">
+          <button id="dock-main" class="dock-main" type="button">
+            <span class="dock-emblem" id="dock-emblem"></span>
+            <span class="dock-text">
+              <span class="dock-title" id="dock-title">Idle</span>
+              <span class="dock-sub" id="dock-sub">Choose an activity</span>
+            </span>
+            <span class="dock-gain" id="dock-gain" aria-hidden="true"></span>
+          </button>
+          <button id="dock-stop" class="dock-stop" type="button" hidden>Stop</button>
+          <span class="dock-progress" aria-hidden="true"><span data-live="activity"></span></span>
+        </div>
       </div>
 
-      <main id="panel" class="panel"></main>
-
-      <footer class="footer">
-        <span>Ashvale 0.3 &middot; art by Astra</span>
-        <button id="reset" class="btn-link" type="button">Reset save</button>
-      </footer>
+      <main id="screen" class="screen" tabindex="-1"></main>
     </div>
 
-    <div class="dock">
-      <div id="nowbar" class="nowbar">
-        <button id="nowbar-main" class="nowbar-main" type="button" aria-label="Current activity">
-          <span class="now-top"><span id="now-label">Idle</span><span id="now-level" class="mono"></span></span>
-          <span class="bar thin"><span class="bar-fill" data-live="activity"></span></span>
+    <div id="notices" class="notices" aria-live="polite"></div>
+    <div id="levelup-host"></div>
+
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" hidden>
+      <div class="drawer-scrim" id="drawer-scrim"></div>
+      <div class="drawer-panel" id="drawer-panel">
+        <div class="drawer-grip"></div>
+        <button class="icon-btn drawer-close" id="drawer-close" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="#cfc3b1" stroke-width="2" stroke-linecap="round" /></svg>
         </button>
-        <button id="now-stop" class="now-stop" type="button" hidden>Stop</button>
+        <div class="drawer-body" id="drawer-body"></div>
       </div>
-      <nav id="tabbar" class="tabbar" aria-label="Main"></nav>
-    </div>
-
-    <div id="sheet" class="sheet" role="dialog" aria-modal="true" hidden>
-      <div id="sheet-backdrop" class="sheet-backdrop"></div>
-      <div class="sheet-panel"><div class="sheet-grip"></div><div id="sheet-body"></div></div>
     </div>
 
     <div id="onboarding" class="onboarding" hidden></div>

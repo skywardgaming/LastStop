@@ -69,8 +69,11 @@ src/
     rng.ts, xp.ts
   platform/storage.ts   localStorage wrapper and single-tab Web Lock
   ui/
-    app.ts              Controller: loop, saving, feedback, sheets, onboarding
-    views.ts            Station / Skills / Train / Satchel / Journal
+    app.ts              Controller: loop, saving, chrome, feedback, drawer sheets, onboarding
+    kit.ts              Design-system primitives (buttons, tabs, gauges, requirements…)
+    screens/            Station / Skills / Train / Satchel / Journal (pure functions of state + UI state)
+    train-inspector.ts  Pixel-exact No. 9 inspection view for the Train screen
+    styles/             tokens.css, base.css, shell.css, components.css, screens.css
     art.ts              Rebirth asset registry and decoded-image loader
     scene.ts            384×216 Rebirth scene (layers, 32 cached repair combos, effects)
     scene-fallback.ts   0.2 procedural scene, shown while art loads or if it fails
@@ -79,6 +82,8 @@ src/
     dom.ts              Tiny hyperscript helper
 public/art/rebirth/     Astra's Operation Rebirth PNGs
 docs/art-rebirth/       Pack README, manifest, QA checksums, skin reference
+docs/DESIGN_SYSTEM.md   UI tokens, type roles, primitives and patterns
+docs/UI_AUDIT.md        The 0.4 interface audit
 tests/                  Vitest (sim.ts: goal-directed full-game bot)
 ```
 

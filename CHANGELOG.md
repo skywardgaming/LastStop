@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.4.0 — Operation First Class (interface)
+
+A complete interface overhaul. Gameplay, timers, offline progress, saves
+and every piece of Astra's art are unchanged (`public/art` has no diff).
+
+- **Design system:** tokens, type roles and reusable primitives
+  (`src/ui/styles/*`, `src/ui/kit.ts`), documented in `docs/DESIGN_SYSTEM.md`.
+  Self-hosted Barlow, Barlow Condensed and Alegreya.
+- **Shell:** compact masthead, framed scene with real hotspots, an activity
+  dock with live progress and Stop, five-destination navigation (bottom bar
+  on phones, left rail on desktop), bottom-sheet/side-panel drawer with a
+  focus trap, capped notices, safe-area support.
+- **Station:** objective tracker with expandable details, characters as
+  portrait medallions with unread counts, a "ready on No. 9" callout, skill
+  gauges and session rewards.
+- **Skills:** gauge selector, skill plate with tool slot and unlocks, and
+  timetable rows for every activity with durations, XP, drops, locks and a
+  live bar while running.
+- **Train:** an inspection pit drawn from the original engine art at whole
+  pixel scales, tappable part hotspots synced with a part selector,
+  requirements that link to their sources, a confirmation sheet and a
+  "Restored" stamp.
+- **Satchel:** slot grid in Astra's rarity frames, categories with counts,
+  sorting, equipped tools, item sheets showing where to find and what uses
+  each item.
+- **Journal:** a cream-paper notebook with index tabs: chapters, finds,
+  people, feats and records, built from a section registry.
+- **Dialogue:** character pages listing conversations; typed lines that
+  finish on tap and appear at once under reduced motion.
+- Scene canvas now scales by whole device pixels.
+
 ## 0.3.0 — Operation Ascension
 
 Ashvale becomes a four-skill idle RPG with tools, research and a second

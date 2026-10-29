@@ -80,6 +80,10 @@ export class StationScene {
   private readonly trainCache = new Map<string, HTMLCanvasElement>();
   private last = 0;
   private reduced = false;
+  /** Device pixels per art pixel when drawing pixel-perfect; 1 when CSS-scaled. */
+  private scale = 1;
+  private integer = false;
+  private availCss = 0;
 
   constructor(private readonly canvas: HTMLCanvasElement) {
     this.fallback = new FallbackScene(canvas);
@@ -94,13 +98,11 @@ export class StationScene {
     loadSceneArt().then(
       (art) => {
         this.art = art;
-        this.canvas.width = SCENE_W;
-        this.canvas.height = SCENE_H;
         const ctx = this.canvas.getContext('2d');
         if (!ctx) throw new Error('2D canvas unavailable');
-        ctx.imageSmoothingEnabled = false;
         this.ctx = ctx;
         this.canvas.dataset.art = 'rebirth';
+        this.applyScale();
         this.last = 0;
       },
       (err: unknown) => {
@@ -113,6 +115,41 @@ export class StationScene {
 
   get ready(): boolean {
     return this.art !== null;
+  }
+
+  /**
+   * Fit the scene to `cssWidth`. When a whole number of device pixels per
+   * art pixel fills at least 85% of the space, the canvas is drawn at that
+   * exact scale (perfectly square pixels); otherwise the 384×216 canvas is
+   * stretched with nearest-neighbour so the framing never shrinks badly.
+   */
+  fit(cssWidth: number): void {
+    if (cssWidth <= 0 || cssWidth === this.availCss) return;
+    this.availCss = cssWidth;
+    this.applyScale();
+  }
+
+  /** The canvas box in CSS pixels, for positioning overlays. */
+  get integerMode(): boolean {
+    return this.integer;
+  }
+
+  private applyScale(): void {
+    if (!this.art || !this.ctx) return;
+    const dpr = window.devicePixelRatio || 1;
+    const avail = this.availCss || this.canvas.parentElement?.clientWidth || SCENE_W;
+    const k = Math.floor((avail * dpr) / SCENE_W);
+    const cssW = (k * SCENE_W) / dpr;
+    this.integer = k >= 1 && cssW >= avail * 0.85;
+    this.scale = this.integer ? k : 1;
+    this.canvas.width = SCENE_W * this.scale;
+    this.canvas.height = SCENE_H * this.scale;
+    this.canvas.classList.toggle('is-integer', this.integer);
+    this.canvas.style.width = this.integer ? `${cssW}px` : '';
+    this.canvas.style.height = this.integer ? `${(cssW * SCENE_H) / SCENE_W}px` : '';
+    this.ctx.imageSmoothingEnabled = false;
+    this.ctx.setTransform(this.scale, 0, 0, this.scale, 0, 0);
+    this.last = 0;
   }
 
   get artFailed(): boolean {
