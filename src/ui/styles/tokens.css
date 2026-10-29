@@ -1,0 +1,133 @@
+/* ============================================================
+   LAST STOP — design tokens ("The Conductor's World")
+   Midnight charcoal and plum surfaces, brass and amber for
+   anything you can act on, cyan reserved for the signal.
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- colour: night surfaces ---- */
+  --c-night: #0a0910;
+  --c-night-2: #0f0d16;
+  --c-plum-900: #14111c;
+  --c-plum-800: #1a1624;
+  --c-plum-700: #221c2e;
+  --c-plum-600: #2c2439;
+  --c-plum-500: #3a3049;
+  --c-line: #352c44;
+  --c-line-soft: rgba(255, 236, 200, 0.07);
+
+  /* ---- colour: text ---- */
+  --c-text: #eee4d2;
+  --c-text-2: #cfc3b1;
+  --c-muted: #9d92a9;
+  --c-faint: #6f6680;
+
+  /* ---- colour: brass, amber (actionable, warm) ---- */
+  --c-brass: #c9a15a;
+  --c-brass-hi: #edcd86;
+  --c-brass-lo: #6f5630;
+  --c-amber: #f2a541;
+  --c-amber-hi: #ffd27a;
+  --c-amber-lo: #8a5418;
+
+  /* ---- colour: signal (restrained) ---- */
+  --c-cyan: #6bddda;
+  --c-cyan-hi: #bff7f2;
+  --c-cyan-lo: #1d6664;
+
+  /* ---- colour: states ---- */
+  --c-rust: #c46536;
+  --c-rust-lo: #5a2412;
+  --c-good: #a3d68f;
+  --c-danger: #ef8f7c;
+
+  /* ---- colour: journal paper ---- */
+  --c-paper: #e8dcc0;
+  --c-paper-2: #ddcfae;
+  --c-paper-line: rgba(76, 58, 40, 0.12);
+  --c-ink: #2a2119;
+  --c-ink-2: #5d4c3b;
+  --c-ink-faint: #8c7a63;
+  --c-stamp: #9b3a24;
+
+  /* ---- colour: rarity (always paired with a text label) ---- */
+  --c-common: #cdc3b6;
+  --c-uncommon: #9fd88f;
+  --c-rare: #f2c55a;
+
+  /* ---- type families ---- */
+  --f-display: 'Barlow Condensed', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  --f-ui: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-story: 'Alegreya', 'Iowan Old Style', Georgia, serif;
+  --f-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ---- type roles ---- */
+  --t-title: 700 26px/1.05 var(--f-display);
+  --t-heading: 700 19px/1.15 var(--f-display);
+  --t-section: 600 12.5px/1.2 var(--f-display);
+  --t-body: 400 15px/1.45 var(--f-ui);
+  --t-body-strong: 600 15px/1.35 var(--f-ui);
+  --t-small: 500 13px/1.35 var(--f-ui);
+  --t-micro: 600 11.5px/1.2 var(--f-display);
+  --t-story: 400 17px/1.55 var(--f-story);
+  --t-story-small: 400 15.5px/1.5 var(--f-story);
+  --t-count: 700 15px/1 var(--f-ui);
+  --t-button: 700 15px/1 var(--f-display);
+  --t-nav: 600 12px/1 var(--f-display);
+
+  --track-section: 0.16em;
+  --track-button: 0.06em;
+
+  /* ---- space ---- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --gutter: 16px;
+
+  /* ---- shape ---- */
+  --r-1: 4px;
+  --r-2: 8px;
+  --r-3: 14px;
+  --r-pill: 999px;
+  --hairline: 1px solid var(--c-line-soft);
+  --edge-brass: 1px solid rgba(201, 161, 90, 0.35);
+
+  /* ---- depth ---- */
+  --shadow-1: 0 1px 0 rgba(255, 240, 210, 0.05) inset, 0 4px 14px rgba(0, 0, 0, 0.32);
+  --shadow-2: 0 1px 0 rgba(255, 240, 210, 0.06) inset, 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-lift: 0 2px 0 var(--c-amber-lo), 0 6px 16px rgba(0, 0, 0, 0.35);
+  --glow-amber: 0 0 18px rgba(242, 165, 65, 0.28);
+  --glow-cyan: 0 0 16px rgba(107, 221, 218, 0.3);
+
+  /* ---- motion ---- */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  --dur-1: 110ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+
+  /* ---- layout ---- */
+  --tap: 44px;
+  --masthead-h: 56px;
+  --nav-h: 62px;
+  --dock-h: 52px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --content-max: 560px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-1: 0ms;
+    --dur-2: 0ms;
+    --dur-3: 0ms;
+  }
+}

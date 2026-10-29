@@ -1,4 +1,17 @@
-import './styles.css';
+import '@fontsource/barlow/latin-400.css';
+import '@fontsource/barlow/latin-500.css';
+import '@fontsource/barlow/latin-600.css';
+import '@fontsource/barlow-condensed/latin-500.css';
+import '@fontsource/barlow-condensed/latin-600.css';
+import '@fontsource/barlow-condensed/latin-700.css';
+import '@fontsource/alegreya/latin-400.css';
+import '@fontsource/alegreya/latin-400-italic.css';
+import '@fontsource/alegreya/latin-500.css';
+import './ui/styles/tokens.css';
+import './ui/styles/base.css';
+import './ui/styles/shell.css';
+import './ui/styles/components.css';
+import './ui/styles/screens.css';
 import { acquireTabLock } from './platform/storage';
 import { artUrl } from './ui/art';
 import { App } from './ui/app';
